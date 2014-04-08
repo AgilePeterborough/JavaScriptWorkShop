@@ -1,13 +1,12 @@
 /*
-	Welcome to the first What the HTML? - JavaScript Workshop
+	Welcome to the What the HTML? - JavaScript Workshop
 
-	First thing we need to do is fix these broken tests. I'm no good at JavaScript and my boss needs them next week.
-	Help me out, and afterwards to can start to look at some cool stuff :).
+	This is just an Ice Breaker and to warm up your brain before we start the day.
 
 	Thanks,
 	JS Workshop Team
 
-	Note : These tests and implementation are not perfect, just an icebreaker to get everybody's brains warmed up
+	Note : These tests and implementation are not perfect
 
 */
 
@@ -34,24 +33,31 @@
 
             it('should multiply two numbers together and return the value', function () {
 
-            	var result = function(a, b){
+            	var multiply = function(a, b){
             		a * b;
             	}
 
-            	expect(result(5, 5)).toBe(25);
+            	var result = multiply(5, 5);
+
+            	expect(result).toBe(25);
             });
 
             it('should display a greeting message with two names', function(){
             	
+            	//Person object
             	function Person(name){
   					this.name = name;
 				}
 
+				//Greet functionality
 				Person.prototype.greet = function(otherName){
 				  return "Hi " + otherName + ", my name is " + name;
 				}
 
+				//Create new person
 				var person = new Person('Matt');
+
+				//Get greet message
 				var result = person.greet('David');
 
 				expect(result).toBe('Hi David, my name is Matt');
@@ -71,16 +77,15 @@
 
             it('should return the value to two fixed decimal', function () {
 
-            	//orginal value
             	var value = 10.4354;
+
+            	//convert value to fixed value.
+            	convert(value);
 
             	//convert any number to fixed number
             	var convert = function(number){
             		return number.toFixed();
             	}
-
-            	//convert value to fixed value.
-            	convert(value);
 
             	var expectedResult = 10.44;
 
@@ -95,6 +100,8 @@
 
 				var calc = new Calculator();
 
+				//TODO: Maybe some functions are missing on the Calculator?
+
             	expect(calc.Add(4, 5)).toBe(9);
 
             });
@@ -102,6 +109,8 @@
             it('Calculator should subtract two numbers together and handle exceptions ', function(){
 
 				var calc = new Calculator();
+
+				//More functions are missing on the calculator.
 
             	expect(calc.Subtract(10, 4)).toBe(6);
             	expect(calc.Subtract("0", "0")).toBe(null);
