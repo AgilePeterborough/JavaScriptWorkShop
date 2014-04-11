@@ -242,6 +242,37 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading purple">
+                                    <i class="fa fa-clock-o fa-fw"></i> Number of Visitors
+                                    <div class="pull-right">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                Change Time
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu pull-right" role="menu">
+                                                <li><a href="#">Today</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">Yesterday</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">This week</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="#">This month</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <h3 class="pie-heading">Today</h3>
+                                    <div id="visitors-today"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="panel panel-default">
                         <div class="panel-heading purple">
                             <i class="fa fa-clock-o fa-fw"></i> Timeline
@@ -301,7 +332,90 @@ The lifelong companions are upping sticks and moving into a brand new home which
                 <div class="col-lg-4">
                     <div class="panel panel-default">
                         <div class="panel-heading orange">
+                            <i class="fa fa-bell fa-fw"></i> Animals
+                            <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Order by
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="#">Name</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Value</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Count</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search for animal">
+                            </div>
+                            <div class="list-group">
+                                <a href="#" class="list-group-item">
+                                    40 x Monkeys
+                                    <span class="pull-right text-muted small"><em> £3,000</em></span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    4 x Tigers
+                                    <span class="pull-right text-muted small"><em>£10,000</em>
+                                    </span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    34 x Giraffe
+                                    <span class="pull-right text-muted small"><em>£130,000</em>
+                                    </span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    23 x Horse
+                                    <span class="pull-right text-muted small"><em>£9,000</em>
+                                    </span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    10 x Emu
+                                    <span class="pull-right text-muted small"><em>£100</em>
+                                    </span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    2 x Eagle
+                                    <span class="pull-right text-muted small"><em>£2,500</em>
+                                    </span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    20 x Goat
+                                    <span class="pull-right text-muted small"><em>£1,000</em>
+                                    </span>
+                                </a>
+                                <a href="#" class="list-group-item">
+                                    9 x Wolf
+                                    <span class="pull-right text-muted small"><em>£8,000</em>
+                                    </span>
+                                </a>
+
+                            </div>
+                            <a href="#" class="btn btn-default btn-block">View All Animals</a>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading orange">
                             <i class="fa fa-bell fa-fw"></i> Notifications Panel
+                             <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                        Order by
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="#">Name</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Date</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -460,9 +574,6 @@ The lifelong companions are upping sticks and moving into a brand new home which
 
     <!-- SB Admin Scripts - Include with every page -->
     
-
-    <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
-    <script src="js/lib/demo/dashboard-demo.js"></script>
 
 </body>
 

@@ -433,3 +433,12 @@ body{
     color:white;
 }
 
+.panel-body .custom-search-form{
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.pie-heading{
+    text-align: center;
+}
+
