@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>JavaScript Workshop</title>
+
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="./bower_components/reveal.js/css/reveal.min.css">
+		<link rel="stylesheet" href="./bower_components/reveal.js/css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="./bower_components/reveal.js/lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="./bower_components/reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="./bower_components/reveal.js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Welcome to the JavaScript Workshop</h1>
+				</section>
+
+				<section>
+          <h2>What is today about?</h2>
+          <ol>
+            <li>Learning something about modern JavaScript frameworks</li>
+            <li>Collaborating with others to build something cool</li>
+            <li>Meeting new people</li>
+            <li>Having fun ^_^</li>
+          </ol>
+  			</section>
+
+        <section>
+          <h2>Goals for the day</h2>
+          <ol>
+            <li>Build a basic single page application using different JavaScript frameworks</li>
+            <ul>
+              <li>Knockout.js + JQuery</li>
+              <li>AngularJS</li>
+            </ul>
+          </ol>
+          <li>Understand the differences between the frameworks: strengths and weaknesses</li>
+        </section>
+
+        <section>
+          <h2>How each lesson works</h2>
+          <ol>
+            <li>Switch to the lesson folder.</li>
+            <li>Follow the instructions on the slides and edit the code.</li>
+            <li>If you finish quickly take the opportunity to experiment and play with what you have learned.</li>
+          </ol>
+          <br>
+          <p>At the end you can save your progress by committing the changes to your local repository using</p>
+          <pre><code>git commit -a -m "Change for lesson X"</code></pre>
+        </section>
+
+        <section>
+          <h2>Welcome to AngularJS</h2>
+          <br>
+          <p>
+            What is Angularjs?
+          </p>
+          <p>
+            <em>A MVVM framework that provides data binding, routing, and APIs for connecting to server-side code.</em>
+          </p>
+          <p>
+            <em>Angularjs is designed to encourage structuring your application is a loosely coupled manner by providing built in support for dependency injection and strong support for unit testing.</em>
+          </p>
+          <br>
+          <p>
+            Who are the authors?
+          </p>
+          <p>
+            <em>A couple of guys from Google.</em>
+          </p>
+        </section>
+
+        <section>
+          <section>
+            <h2>Lesson 1: An app with a view</h2>
+            <br>
+            <p>
+              What we will cover:
+            </p>
+            <br>
+            <ol>
+              <li>Bootstrapping our app using the ng-app directive.</li>
+              <li>Declaring a simple controller to bind data to the view.</li>
+              <li>Using the $scope variable as our view-model.</li>
+            </ol>
+          </section>
+
+          <section>
+            <h2>Displaying data using Angular</h2>
+            <br>
+            <ol>
+              <li>Add data to the $scope variable.</li>
+              <li>Tell Angular where to display the data in the markup by using double brace markers '{{}}'.</li>
+              <li>Angular automatically replaces the {{}} with values from the $scope as required.</li>
+            </ol>
+            <br>
+            <p>
+              Binding is two way, i.e. edits to the bound data values within the markup will be reflected back to the $scope variable.
+            </p>
+          </section>
+
+          <section>
+            <h2>Let's code!</h2>
+            <br>
+            <p>
+              Open this file:
+            </p>
+            <pre><code>/Lessons/angularjs/lesson-1/index.html</code></pre>
+          </section>
+
+          <section>
+            <h2>Bootstrapping our Angular app</h2>
+            <br>
+            <p>
+              Declaring our application scope
+            </p>
+            <p>
+              The <code>ng-app</code> directive is used to tell Angular where the scope of our application begins. It is normal to add the directive as an attribute of either the <code>&lt;html&gt;</code> or <code>&lt;body&gt;</code> elements.
+            </p>
+            <pre><code>
+              &lt;html ng-app="myApp"&gt;
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Adding a Controller</h2>
+            <br>
+            <p>
+              Controllers are pieces of executable JavaScript code that are responsible for associating data with the current scope of a view.
+            </p>
+            <p>
+              Controllers should retrieve the data to be displayed from your model, be it a web services or other data source, and add elements to the $scope variable that need to be made available to the view.
+            </p>
+            <pre><code>
+              &lt;body ng-controller="MyController"&gt;
+            </code></pre>
+            <p>
+              The <code>ng-controller</code> directive tells Angular where to apply a controller within your markup. Child elements of the element containing the <code>ng-controller</code> directive will have access to the $scope associated with your controller for binding purposes.
+            </p>
+          </section>
+
+          <section>
+            <h2>Wiring up the JavaScript code</h2>
+            <br>
+            <p>
+              With the directives in place we can now add the code that executes at runtime when Angular processes our page. First we get a reference to our application by calling the <code>module()</code> function of the global <code>angular</code> reference.
+            </p>
+            <pre><code>
+              var myApp = angular.module('myApp', []);
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Wiring up the JavaScript code (2)</h2>
+            <br>
+            <p>
+              Then we declare our controller calling the <code>controller()</code> function on the application reference passing in a function that accepts the <code>$scope</code> argument.
+            </p>
+            <pre><code>
+                myApp.controller('MyController', function($scope) {
+                  // Add awesome things to the $scope
+                  $scope.awesome_thing = 'OMG so awesome!';
+                });
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Now we can bind data from $scope to our view</h2>
+            <br>
+            <p>
+              Items from the $scope are reference in the view using double braces '{{}}' to surround the name of the $scope attribute to reference.
+            </p>
+            <pre><code>
+              &lt;p&gt;This value is from the $scope: {{awesome_thing}}&lt;p&gt;
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Repeat all the data!</h2>
+            <br>
+            <p>
+              We can then go wild with <code>ng-repeat</code> and bind to arrays of data!
+            </p>
+            <pre><code>
+              myApp.controller('MyController', function($scope) {
+                $scope.array_of_things = [
+                  { name: 'Chris', occupation: 'Ninja' },
+                  { name: 'David', occupation: 'Rockstar' },
+                  { name: 'Michael', occupation: 'Meerkat Tamer' }
+                ];
+              });
+
+              &lt;div ng-repeat="thing in array_of_things"&gt;
+                &lt;label&gt;Name:&lt;/label&gt; {{thing.name}}
+                &lt;label&gt;Occupation:&lt;/label&gt; {{thing.occupation}}
+              &lt;/div&gt;
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>What did we learn?</h2>
+            <br>
+          </section>
+        </section>
+			</div>
+		</div>
+
+		<script src="./bower_components/reveal.js/lib/js/head.min.js"></script>
+		<script src="./bower_components/reveal.js/js/reveal.min.js"></script>
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: './bower_components/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: './bower_components/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: './bower_components/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: './bower_components/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: './bower_components/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: './bower_components/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
