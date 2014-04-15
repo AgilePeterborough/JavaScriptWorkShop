@@ -1,0 +1,3 @@
+# Wondering if we should include the bower packages as people will
+# need to install them using bower. Will they have bower installed?
+bower_components
