@@ -17,6 +17,8 @@
 		<link rel="stylesheet" href="./bower_components/reveal.js/css/reveal.min.css">
 		<link rel="stylesheet" href="./bower_components/reveal.js/css/theme/default.css" id="theme">
 
+    
+
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="./bower_components/reveal.js/lib/css/zenburn.css">
 
@@ -28,6 +30,8 @@
 		<!--[if lt IE 9]>
 		<script src="./bower_components/reveal.js/lib/js/html5shiv.js"></script>
 		<![endif]-->
+
+    <link rel="stylesheet" href="./styles.css">
 	</head>
 
 	<body>
@@ -68,10 +72,152 @@
             <li>If you finish quickly take the opportunity to experiment and play with what you have learned.</li>
           </ol>
           <br>
-          <p>At the end you can save your progress by committing the changes to your local repository using</p>
+          <br>
+          <small>At the end you can save your progress by committing the changes to your local repository using</small>
           <pre><code>git commit -a -m "Change for lesson X"</code></pre>
         </section>
 
+        <!-- Knockout Start -->
+  
+        <section>
+          <h2>Welcome to KnockoutJS</h2>
+          <p class="question">What is KnockoutJS?</p>
+          <p class="answer">Knockout is a standalone JavaScript implementation of the Model-View-ViewModel pattern with templates.</p>
+          
+          <p class="question">
+            Who is the author?
+          </p>
+          <p class="answer">
+            <em>Steve Sanderson.</em>
+          </p>
+
+        </section>
+
+        <section>
+          <section>
+            <h2>Lesson 1: An app with a viewmodel</h2>
+            <p class="question">
+              What we will cover:
+            </p>
+            <ol>
+              <li>Writing a simple view model and activating it</li>
+              <li>Declaring a simple model to bind data to the view.</li>
+              <li>Using the computed function</li>
+              <li>Looping through arrays</li>
+            </ol>
+          </section>
+
+          <section>
+            <h2>Getting started...</h2>
+
+            <pre><code>
+              //Basic HTML
+              &lt;p&gt;Hello my name is &lt;span&gt;David&lt;/span&gt;&lt;/p&gt;
+              
+              //HTML with data-bind
+              &lt;p&gt;Hello my name is &lt;span data-bind=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+            </code></pre>
+
+          </section>
+
+          <section>
+            <h2>Writing a simple view model and activating it</h2>
+
+            <pre><code>
+              //Create very basic view model
+              var ViewModel = {
+                 name : ko.observable(&quot;David&quot;)
+              }
+
+              //Apply bindings (as data-bind arribute is not native to HTML)
+              ko.applyBindings(new ViewModel());
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Declaring a simple model to bind data to the view</h2>
+
+            <pre><code>
+              
+              //Knockout HTML
+              &lt;p&gt;Hello my name is &lt;span data-bind=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+
+              //Create very basic view model
+              var ViewModel = {
+                 name : ko.observable(&quot;David&quot;)
+              }
+
+              //Apply bindings (as data-bind arribute is not native to HTML)
+              ko.applyBindings(new ViewModel());
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Using a computed function</h2>
+
+            <pre><code>
+             Hello world! My full name is &lt;span data-bind=&quot;text: fullName&quot;&gt;&lt;/span&gt;
+
+            function ViewModel() {
+                var self = this;
+             
+                self.firstName = ko.observable('Bob');
+                self.lastName = ko.observable('Smith');
+                self.fullName = ko.computed(function() {
+                    return self.firstName() + &quot; &quot; + self.lastName();
+                });
+            }
+
+            //Apply bindings
+            ko.applyBindings(new ViewModel());
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Looping through Arrays</h2>
+
+            <pre><code>
+            &lt;ul data-bind=&quot;foreach: people&quot;&gt;
+              &lt;li&gt;
+                  Name &lt;span data-bind=&quot;text: firstname&quot;&gt; &lt;/span&gt;
+                  Surname &lt;span data-bind=&quot;text: surname&quot;&gt; &lt;/span&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+
+            function ViewModel() {
+                var self = this;
+             
+                this.people = ko.observableArray([
+                    { firstname: &quot;David&quot;, surname: &quot;Boyne&quot; },
+                    { firstname: &quot;Chris&quot;, surname: &quot;Neave&quot; }
+                ]);
+            }
+
+            //Apply bindings
+            ko.applyBindings(new ViewModel());
+            </code></pre>
+          </section>
+
+
+          <section>
+            <h2>Let's code!</h2>
+            <br>
+            <p>
+              Open this file:
+            </p>
+            <pre><code>/Lessons/knockoutjs/lesson-1/index.html</code></pre>
+          </section>
+
+          <section>
+            <h2>What did we learn?</h2>
+            <br>
+          </section>
+        </section>
+
+        <!-- Knockout End -->
+
+
+        <!-- Angular START-->
         <section>
           <h2>Welcome to AngularJS</h2>
           <br>

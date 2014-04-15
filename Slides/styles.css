@@ -1,0 +1,18 @@
+p{
+	text-align: left;
+}
+
+.reveal .question {
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+.reveal .answer{
+	margin-left: 30px;
+	margin-bottom: 10px;
+}
+
+.reveal small{
+	margin:0;
+	text-align: left;
+}

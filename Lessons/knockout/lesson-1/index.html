@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Meerkat Dashboard</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+    <script src="../lib/knockout.js"></script>
+  </head>
+
+  <!-- Set the scope of the body element to use the MyController -->
+  <body>
+
+    <!-- Binding to the view model to get a heading for the page -->
+    <h2>Welcome to <span data-bind="text: appTitle"></h2>
+
+    <!-- Repeating Content -->
+    <section class="container">
+      <div class="row well" data-bind="foreach: meerkats">
+        <img data-bind="attr:{src: picture_href}" />
+        <div >
+          <label>Name: </label> <span data-bind="text: name"></span>
+          <label>Date of birth:</label> <span data-bind="text: dateOfBirth"></span>
+          <label>Age:</label> <span data-bind="text: $root.calculateAge(dateOfBirth)"></span>
+        </div>
+      </div>
+    </section>
+    <!-- End of Repeating Content -->
+
+    <script language="javascript">
+
+    // Here's my data model
+    var ViewModel = function() {
+
+        // Set a title for our dashboard
+        // (1) Uncomment the line below to bind a title to the view.
+        
+        //this.appTitle = ko.observable("The Great Meerkat Dashboard!");
+
+        // Add the Meerkats
+        // (2) Uncomment the next block to add a set of repeating data to the view.
+        
+        // var base_url = 'http://cdn.comparethemarket.com/meerkat/0.0.0.0/Templates/Styles/Meerkats/PageFiles';
+        // this.meerkats = [];
+        // this.meerkats.push({ name: 'Sergei', dateOfBirth: '1937-04-10', picture_href: base_url + '/115/sergei.png' });
+        // this.meerkats.push({ name: 'Yakov', dateOfBirth: '1943-12-20', picture_href: base_url + '/109/Yakov.png' });
+        // this.meerkats.push({ name: 'Aleksandr', dateOfBirth: '1976-01-21', picture_href: base_url + '/113/Alek_profile.png' });
+
+        // Calculate the date of birth for a given meerkat
+        // (3) Uncomment the next block to bind a function to the view.
+        // this.calculateAge = function(dateOfBirth) {
+        //   var now = new Date(),
+        //       dob = new Date(dateOfBirth);
+        //   return now.getYear() - dob.getYear();
+        // };
+
+
+    }
+
+       //Apply View to the DOM
+       ko.applyBindings(new ViewModel());
+    </script>
+  </body>
+</html>
