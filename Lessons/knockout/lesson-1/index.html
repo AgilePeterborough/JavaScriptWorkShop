@@ -31,13 +31,13 @@
     // Here's my data model
     var ViewModel = function() {
 
-        // Set a title for our dashboard
-        // (1) Uncomment the line below to bind a title to the view.
+        //Set a title for our dashboard
+        //(1) Uncomment the line below to bind a title to the view.
         
-        //this.appTitle = ko.observable("The Great Meerkat Dashboard!");
+        // this.appTitle = ko.observable("The Great Meerkat Dashboard!");
 
-        // Add the Meerkats
-        // (2) Uncomment the next block to add a set of repeating data to the view.
+        //Add the Meerkats
+        //(2) Uncomment the next block to add a set of repeating data to the view.
         
         // var base_url = 'http://cdn.comparethemarket.com/meerkat/0.0.0.0/Templates/Styles/Meerkats/PageFiles';
         // this.meerkats = [];
@@ -45,13 +45,21 @@
         // this.meerkats.push({ name: 'Yakov', dateOfBirth: '1943-12-20', picture_href: base_url + '/109/Yakov.png' });
         // this.meerkats.push({ name: 'Aleksandr', dateOfBirth: '1976-01-21', picture_href: base_url + '/113/Alek_profile.png' });
 
-        // Calculate the date of birth for a given meerkat
-        // (3) Uncomment the next block to bind a function to the view.
+        //Calculate the date of birth for a given meerkat
+        //(3) Uncomment the next block to bind a function to the view.
         // this.calculateAge = function(dateOfBirth) {
         //   var now = new Date(),
         //       dob = new Date(dateOfBirth);
         //   return now.getYear() - dob.getYear();
         // };
+        
+        
+        //Tasks:
+        //TODO: Add more meerkats to the array and show them on the UI
+        //TODO: Add a description for the App through knockout bindings
+        //TODO: Visualise the first letter or the meerkat seperatly (maybe using computed or functions?)
+        //TODO: If Meerkat is greater than 71 add another message onto the meerkat saying "Old Meerkat"
+        //TODO: Add a button to remove a meerkat from the list? What happens?
 
 
     }
