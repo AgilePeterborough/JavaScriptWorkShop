@@ -25,6 +25,7 @@ We're pretty sure the slides work in IE ^_^
 ### 3. Finding each lesson
 
 Lessons are located in the "Lessons" folder with subfolders per framework. For example, the files for the first angularjs lesson can be found here:
+
 ```
 Lessons/angularjs/lesson-1
 ```
