@@ -133,7 +133,8 @@
           </p>
 
         </section>
-
+        
+        <!--Lesson 1 start -->
         <section>
           <section>
             <h2>Lesson 1: An app with a viewmodel</h2>
@@ -254,6 +255,133 @@
             <br>
           </section>
         </section>
+        <!-- Lesson 1 end -->
+
+        <!-- Lesson 2 start -->
+        <section>
+          <section>
+            <h2>Lesson 2: Capturing Data and Manipulate the DOM</h2>
+            <p class="question">
+              What we will cover:
+            </p>
+            <ol>
+              <li>Handling Click Events</li>
+              <li>Handling User Input</li>
+              <li>Changing the state of elements (show/hide)</li>
+              <li>Adding/Removing Classes on the Fly</li>
+            </ol>
+          </section>
+          <section>
+            <h2>Handling Click Events</h2>
+
+            <pre><code>
+  &lt;div&gt;
+    Kill Meerkat &lt;span data-bind=&quot;text: numberOfMeerkatsKilled&quot;&gt;&lt;/span&gt; times
+    &lt;button data-bind=&quot;click: incrementMeerkatsKilled&quot;&gt;Destroy Meerkat&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;script type=&quot;text/javascript&quot;&gt;
+      var viewModel = {
+          numberOfMeerkatsKilled : ko.observable(0),
+          incrementMeerkatsKilled : function() {
+              var previousCount = this.numberOfMeerkatsKilled();
+              this.numberOfMeerkatsKilled(previousCount + 1);
+          }
+      };
+  &lt;/script&gt;
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Handling User Input</h2>
+
+            <pre><code>
+  &lt;p&gt;How many meerkats do you have? &lt;input data-bind=&quot;value: numberOfMeerkats&quot; /&gt;&lt;/p&gt;
+  &lt;p&gt;How many meerkats do you want? &lt;input data-bind=&quot;value: numberOfMeerkatsWanted&quot; /&gt;&lt;/p&gt;
+     
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var viewModel = {
+            numberOfMeerkats: ko.observable(&quot;&quot;),        // Initially blank
+            numberOfMeerkatsWanted: ko.observable(23) // Prepopulate
+        };
+    &lt;/script&gt;
+
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Changing the state of elements (show/hide)</h2>
+
+            <pre><code>
+  &lt;div data-bind=&quot;visible: shouldShowMessage&quot;&gt;
+      You will see this message only when &quot;shouldShowMessage&quot; holds a true value.
+  &lt;/div&gt;
+   
+  &lt;script type=&quot;text/javascript&quot;&gt;
+      var viewModel = {
+          shouldShowMessage: ko.observable(true) // Message initially visible
+      };
+      viewModel.shouldShowMessage(false); // ... now it's hidden
+      viewModel.shouldShowMessage(true); // ... now it's visible again
+  &lt;/script&gt;
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Adding/Removing Classes on the fly</h2>
+            <pre><code>
+        &lt;div data-bind=&quot;css: { warning: numberOfMeerkatsAlive() &lt;= 10 }&quot;&gt;
+        &lt;span data-bind=&quot;text: numberOfMeerkatsAlive&quot;&gt;&lt;/span&gt; Meerkats Alive
+        &lt;/div&gt;
+         
+        &lt;script type=&quot;text/javascript&quot;&gt;
+            var viewModel = {
+                numberOfMeerkatsAlive: ko.observable(100) // Positive value, so initially we don't apply the &quot;warning&quot; class
+            };
+            viewModel.numberOfMeerkatsAlive(10); // Causes the &quot;profitWarning&quot; class to be applied
+        &lt;/script&gt;
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Adding/Removing Classes on the fly</h2>
+            <pre><code>
+    &lt;div data-bind=&quot;css: profitStatus&quot;&gt;
+       Profit Information
+    &lt;/div&gt;
+     
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        var viewModel = {
+            currentProfit: ko.observable(150000)
+        };
+     
+        // Evalutes to a positive value, so initially we apply the &quot;profitPositive&quot; class
+        viewModel.profitStatus = ko.computed(function() {
+            return this.currentProfit() &lt; 0 ? &quot;profitWarning&quot; : &quot;profitPositive&quot;;
+        }, viewModel);
+     
+        // Causes the &quot;profitPositive&quot; class to be removed and &quot;profitWarning&quot; class to be added
+        viewModel.currentProfit(-50);
+    &lt;/script&gt;
+            </code></pre>
+          </section>
+
+        <section>
+          <h2>Let's code!</h2>
+          <br>
+          <p>
+            Open this file:
+          </p>
+          <pre><code>/Lessons/knockoutjs/lesson-2/index.html</code></pre>
+        </section>
+
+        <section>
+          <h2>What did we learn?</h2>
+          <br>
+        </section>
+
+        </section>
+        <!-- Lesson 2 end -->
 
         <!-- Knockout End -->
 
