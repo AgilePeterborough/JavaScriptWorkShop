@@ -383,6 +383,148 @@
         </section>
         <!-- Lesson 2 end -->
 
+        <!-- Lesson 3 start -->
+        
+        <section>
+          <section>
+            <h2>Lesson 3: Filtering and Sorting Data</h2>
+            <p class="question">
+              What we will cover:
+            </p>
+            <ol>
+              <li>ko.Utils - Utility to help us sort and filter data</li>
+              <li>ko.utils.arrayFilter</li>
+              <li>ko.utils.arrayFirst</li>
+              <li>ko.utils.arrayForEach</li>
+              <li>ko.utils.arrayMap</li>
+            </ol>
+          </section>
+
+          <section>
+            <h2>ko.Utils - What is it?</h2>
+            <p>Internally, Knockout has a number of utility functions used by the library itself, but many of these functions might actually be handy for anyone using the library. </p>
+          </section>
+          
+          <section>
+            <h2>ko.utils.arrayFilter</h2>
+            <p>We bind a textbox to a filter observable and use it to get our filtered items</p>
+
+            <pre>
+              <code>//filter the items using the filter text
+viewModel.filteredItems = ko.computed(function() {
+
+    var filter = this.filter().toLowerCase();
+  
+    //Check if any filter has been defined
+    if (!filter) {
+
+        return this.items();
+
+    } else {
+        
+        //Filter the array with the given filter string
+        return ko.utils.arrayFilter(this.items(), function(item) {
+            return ko.utils.stringStartsWith(item.name().toLowerCase(), filter);
+        });
+    }
+}, viewModel);
+              </code>
+            </pre>
+
+          </section>
+
+          <section>
+            <h2>ko.utils.arrayFirst</h2>
+            <p>Return the first item that matches</p>
+
+            <pre><code>
+//identify the first matching item by name
+viewModel.firstMatch = ko.computed(function() {
+
+    var search = this.search().toLowerCase();
+
+    //check if there is a search value
+    if (!search) {
+
+        return null;
+
+    } else {
+  
+        //Return the first item in the array that matches
+        return ko.utils.arrayFirst(this.filteredItems(), function(item) {
+            
+            return ko.utils.stringStartsWith(item.name().toLowerCase(), search);
+
+        });
+    }
+}, viewModel);
+            </code></pre>
+
+          </section>
+
+          <section>
+            <h2>ko.utils.arrayForeach</h2>
+            <p>Short hand to loop through array</p>
+            <pre><code>
+    //Function to compute the total of an array of items
+    viewModel.total = ko.computed(function() {
+
+        var total = 0;
+        
+        //Loop through given array
+        ko.utils.arrayForEach(this.items(), function(item) {
+
+            //Sumup total
+            var value = parseFloat(item.priceWithTax());
+            if (!isNaN(value)) {
+                total += value;
+            }
+
+        });
+
+        return total.toFixed(2);
+    }, viewModel);
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>ko.utils.arrayMap</h2>
+            <p>ko.utils.arrayMap is a nice way to take an array of objects and generate a flattened structure.</p>
+            <pre><code>
+              //get a list of used categories
+              viewModel.justCategories = ko.computed(function() {
+
+                  var categories = ko.utils.arrayMap(this.items(), function(item) {
+                      return item.category();
+                  });
+
+                  return categories.sort();
+                  
+              }, viewModel);
+            </code></pre>
+          </section>
+
+          <section>
+          <h2>Let's code!</h2>
+          <br>
+          <p>
+            Open this file:
+          </p>
+          <pre><code>/Lessons/knockoutjs/lesson-3/index.html</code></pre>
+        </section>
+
+        <section>
+          <h2>What did we learn?</h2>
+          <br>
+        </section>
+
+
+        </section>
+
+
+
+        <!-- Lesson 3 end -->
+
         <!-- Knockout End -->
 
 
