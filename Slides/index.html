@@ -693,6 +693,41 @@ viewModel.firstMatch = ko.computed(function() {
             <br>
           </section>
         </section>
+
+				<section>
+					<section>
+						<h2>Lesson 2: Capturing data and manipulating the DOM</h2>
+						<br>
+						<p>
+							What we will cover:
+						</p>
+						<br>
+						<ol>
+							<li>Handling click events.</li>
+							<li>Handling user input.</li>
+							<li>Changing the state of elements (show/hide).</li>
+							<li>Adding elements on the fly.</li>
+						</ol>
+					</section>
+
+					<section>
+						<h2>Handling click events - enter ng-click</h2>
+						<br>
+						<p>The ng-click directive allows behavior to be triggered when elements are clicked.</p>
+						<br>
+						<pre><code>
+&lt;button class=&quot;btn&quot; ng-click=&quot;killMeerkat(meerkat)&quot;&gt;Delete&lt;/button&gt;
+
+$scope.killMeerkat = function(meerkat) {
+	var index = $scope.meerkats.indexOf(meerkat);
+	$scope.meerkats.splice(index, 1);
+};
+						</code></pre>
+					</section>
+
+					<section>
+					</section>
+				</section>
 			</div>
 		</div>
 
