@@ -17,7 +17,7 @@
 		<link rel="stylesheet" href="./bower_components/reveal.js/css/reveal.min.css">
 		<link rel="stylesheet" href="./bower_components/reveal.js/css/theme/default.css" id="theme">
 
-    
+
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="./bower_components/reveal.js/lib/css/zenburn.css">
@@ -119,12 +119,12 @@
         </section>
 
         <!-- Knockout Start -->
-  
+
         <section>
           <h2>Welcome to KnockoutJS</h2>
           <p class="question">What is KnockoutJS?</p>
           <p class="answer">Knockout is a standalone JavaScript implementation of the Model-View-ViewModel pattern with templates.</p>
-          
+
           <p class="question">
             Who is the author?
           </p>
@@ -133,7 +133,7 @@
           </p>
 
         </section>
-        
+
         <!--Lesson 1 start -->
         <section>
           <section>
@@ -155,7 +155,7 @@
             <pre><code>
               //Basic HTML
               &lt;p&gt;Hello my name is &lt;span&gt;David&lt;/span&gt;&lt;/p&gt;
-              
+
               //HTML with data-bind
               &lt;p&gt;Hello my name is &lt;span data-bind=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
             </code></pre>
@@ -180,7 +180,7 @@
             <h2>Declaring a simple model to bind data to the view</h2>
 
             <pre><code>
-              
+
               //Knockout HTML
               &lt;p&gt;Hello my name is &lt;span data-bind=&quot;name&quot;&gt;&lt;/span&gt;&lt;/p&gt;
 
@@ -202,7 +202,7 @@
 
             function ViewModel() {
                 var self = this;
-             
+
                 self.firstName = ko.observable('Bob');
                 self.lastName = ko.observable('Smith');
                 self.fullName = ko.computed(function() {
@@ -228,7 +228,7 @@
 
             function ViewModel() {
                 var self = this;
-             
+
                 this.people = ko.observableArray([
                     { firstname: &quot;David&quot;, surname: &quot;Boyne&quot; },
                     { firstname: &quot;Chris&quot;, surname: &quot;Neave&quot; }
@@ -298,7 +298,7 @@
             <pre><code>
   &lt;p&gt;How many meerkats do you have? &lt;input data-bind=&quot;value: numberOfMeerkats&quot; /&gt;&lt;/p&gt;
   &lt;p&gt;How many meerkats do you want? &lt;input data-bind=&quot;value: numberOfMeerkatsWanted&quot; /&gt;&lt;/p&gt;
-     
+
     &lt;script type=&quot;text/javascript&quot;&gt;
         var viewModel = {
             numberOfMeerkats: ko.observable(&quot;&quot;),        // Initially blank
@@ -316,7 +316,7 @@
   &lt;div data-bind=&quot;visible: shouldShowMessage&quot;&gt;
       You will see this message only when &quot;shouldShowMessage&quot; holds a true value.
   &lt;/div&gt;
-   
+
   &lt;script type=&quot;text/javascript&quot;&gt;
       var viewModel = {
           shouldShowMessage: ko.observable(true) // Message initially visible
@@ -333,7 +333,7 @@
         &lt;div data-bind=&quot;css: { warning: numberOfMeerkatsAlive() &lt;= 10 }&quot;&gt;
         &lt;span data-bind=&quot;text: numberOfMeerkatsAlive&quot;&gt;&lt;/span&gt; Meerkats Alive
         &lt;/div&gt;
-         
+
         &lt;script type=&quot;text/javascript&quot;&gt;
             var viewModel = {
                 numberOfMeerkatsAlive: ko.observable(100) // Positive value, so initially we don't apply the &quot;warning&quot; class
@@ -349,17 +349,17 @@
     &lt;div data-bind=&quot;css: profitStatus&quot;&gt;
        Profit Information
     &lt;/div&gt;
-     
+
     &lt;script type=&quot;text/javascript&quot;&gt;
         var viewModel = {
             currentProfit: ko.observable(150000)
         };
-     
+
         // Evalutes to a positive value, so initially we apply the &quot;profitPositive&quot; class
         viewModel.profitStatus = ko.computed(function() {
             return this.currentProfit() &lt; 0 ? &quot;profitWarning&quot; : &quot;profitPositive&quot;;
         }, viewModel);
-     
+
         // Causes the &quot;profitPositive&quot; class to be removed and &quot;profitWarning&quot; class to be added
         viewModel.currentProfit(-50);
     &lt;/script&gt;
@@ -384,7 +384,7 @@
         <!-- Lesson 2 end -->
 
         <!-- Lesson 3 start -->
-        
+
         <section>
           <section>
             <h2>Lesson 3: Filtering and Sorting Data</h2>
@@ -404,7 +404,7 @@
             <h2>ko.Utils - What is it?</h2>
             <p>Internally, Knockout has a number of utility functions used by the library itself, but many of these functions might actually be handy for anyone using the library. </p>
           </section>
-          
+
           <section>
             <h2>ko.utils.arrayFilter</h2>
             <p>We bind a textbox to a filter observable and use it to get our filtered items</p>
@@ -414,14 +414,14 @@
 viewModel.filteredItems = ko.computed(function() {
 
     var filter = this.filter().toLowerCase();
-  
+
     //Check if any filter has been defined
     if (!filter) {
 
         return this.items();
 
     } else {
-        
+
         //Filter the array with the given filter string
         return ko.utils.arrayFilter(this.items(), function(item) {
             return ko.utils.stringStartsWith(item.name().toLowerCase(), filter);
@@ -449,10 +449,10 @@ viewModel.firstMatch = ko.computed(function() {
         return null;
 
     } else {
-  
+
         //Return the first item in the array that matches
         return ko.utils.arrayFirst(this.filteredItems(), function(item) {
-            
+
             return ko.utils.stringStartsWith(item.name().toLowerCase(), search);
 
         });
@@ -470,7 +470,7 @@ viewModel.firstMatch = ko.computed(function() {
     viewModel.total = ko.computed(function() {
 
         var total = 0;
-        
+
         //Loop through given array
         ko.utils.arrayForEach(this.items(), function(item) {
 
@@ -499,7 +499,7 @@ viewModel.firstMatch = ko.computed(function() {
                   });
 
                   return categories.sort();
-                  
+
               }, viewModel);
             </code></pre>
           </section>
@@ -748,6 +748,26 @@ $scope.killMeerkat = function(meerkat) {
 
 // Give the warning threshold a default value.
 $scope.warningThreshold = 4;
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Changing the state of elements</h2>
+						<br>
+						<p>
+							Hiding elements is achieved using the <code>ng-hide</code> directive.
+							If the expression specified in the directive evaluates to true then
+							the elements are hidden, otherwise the elements are visible in the
+							browser.
+						</p>
+						<pre><code>
+<div ng-repeat="meerkat in meerkats" ng-hide="showMeerkats">
+	<!-- Repeating content -->
+</div>
+
+<button class="btn btn-primary" ng-click="showMeerkats = !showMeerkats">
+	Show/Hide Meerkats
+</button>
 						</code></pre>
 					</section>
 				</section>
