@@ -31,6 +31,7 @@
         {{meerkatsKilled}} meerkats killed so far
       </h3>
 
+      <!-- (1) Uncomment the button below to allow meerkats to be hidden and shown -->
       <button class="btn btn-primary show-meerkats" ng-click="showMeerkats = !showMeerkats">Show/Hide Meerkats</button>
       <button class="btn btn-primary show-meerkats" ng-click="resurrectLastKilledMeerkat()">Resurrect most recently deceased meerkat</button>
     </section>
@@ -59,12 +60,9 @@
 
       myApp.controller('MyController', function($scope) {
         // Set a title for our dashboard
-        // (1) Uncomment the line below to bind a title to the view.
         $scope.appTitle = 'The Great Meekat Dashboard!';
 
         // Add the Meerkats
-        // (2) Uncomment the next block to add a set of repeating data to the view.
-
         var base_url = 'http://cdn.comparethemarket.com/meerkat/0.0.0.0/Templates/Styles/Meerkats/PageFiles';
         $scope.meerkats = [];
         $scope.meerkats.push({ name: 'Sergei', dateOfBirth: '1937-04-10', picture_href: base_url + '/115/sergei.png' });
@@ -74,7 +72,6 @@
         $scope.meerkatGraveyard = [];
 
         // Calculate the date of birth for a given meerkat
-        // (3) Uncomment the next block to bind a function to the view.
         $scope.calculateAge = function(meerkat) {
           var now = new Date(),
               dob = new Date(meerkat.dateOfBirth);
@@ -87,12 +84,14 @@
 
         $scope.appDescription = 'This is such a neat way to bind data - look no JQuery ^_^';
 
+        // (2) Uncomment the block below to display a message for very old meerkats.
         $scope.comment = function(meerkat) {
           if ($scope.calculateAge(meerkat) > 71) {
             return 'Old Meerkat';
           }
         };
 
+        // (3) Uncomment the following block to allow Meerkats to be killed :(
         $scope.killMeerkat = function(meerkat) {
           var index = $scope.meerkats.indexOf(meerkat);
           $scope.meerkats.splice(index, 1);
