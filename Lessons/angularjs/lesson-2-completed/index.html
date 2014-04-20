@@ -27,7 +27,12 @@
     <!-- Binding to the view model to get a heading for the page -->
     <h2>Welcome to {{appTitle}}</h2>
     <p>{{appDescription}}</p>
-    <h2 ng-class="{warning: meerkats.length < 4}">You currently have {{meerkats.length}} meerkats alive</h2>
+    <div>
+      <label>Warning threshold:</label>
+      <input name="warningThreshold" ng-model="warningThreshold" />
+    </div>
+
+    <h2 ng-class="{warning: meerkats.length < warningThreshold}">You currently have {{meerkats.length}} meerkats alive</h2>
     <h2 ng-show="meerkats.length == 0">How cruel - you mudered all of the Meerkats!</h3>
 
     <h2>
@@ -110,6 +115,8 @@
             $scope.meerkats.push(meerkat);
           }
         }
+
+        $scope.warningThreshold = 4;
 
       // Tasks:
       // [x] - Add a show/hide button on each meerkat. Allow the user to hide any meerkat they like

@@ -27,7 +27,12 @@
     <!-- Binding to the view model to get a heading for the page -->
     <h2>Welcome to {{appTitle}}</h2>
     <p>{{appDescription}}</p>
-    <h2 ng-class="{warning: meerkats.length < 4}">You currently have {{meerkats.length}}</span> meerkats alive</h2>
+    <div>
+      <label>Warning threshold:</label>
+      <input name="warningThreshold" ng-model="warningThreshold" />
+    </div>
+
+    <h2 ng-class="{warning: meerkats.length < warningThreshold}">You currently have {{meerkats.length}}</span> meerkats alive</h2>
 
     <button class="btn btn-primary show-meerkats" ng-click="showMeerkats = !showMeerkats">Show/Hide Meerkats</button>
 
@@ -89,6 +94,8 @@
           var index = $scope.meerkats.indexOf(meerkat);
           $scope.meerkats.splice(index, 1);
         };
+
+        $scope.warningThreshold = 4;
 
       // Tasks:
       // [ ] - Add more meerkats to the list and watch the binding magic. Everything should just be updated
