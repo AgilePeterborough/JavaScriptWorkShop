@@ -713,7 +713,9 @@ viewModel.firstMatch = ko.computed(function() {
 					<section>
 						<h2>Handling click events - enter ng-click</h2>
 						<br>
-						<p>The ng-click directive allows behavior to be triggered when elements are clicked.</p>
+						<p>
+							The <code>ng-click</code> directive allows behavior to be triggered when elements are clicked.
+						</p>
 						<br>
 						<pre><code>
 &lt;button class=&quot;btn&quot; ng-click=&quot;killMeerkat(meerkat)&quot;&gt;Delete&lt;/button&gt;
@@ -726,6 +728,27 @@ $scope.killMeerkat = function(meerkat) {
 					</section>
 
 					<section>
+						<h2>Handling user input</h2>
+						<br>
+						<p>
+							<code>ng-model</code> is used to bind an input element to data in the $scope view model.
+						</p>
+						<pre><code>
+<style>
+.warning {
+	color:red;
+}
+</style>
+
+<input name="warningThreshold" ng-model="warningThreshold" />
+
+<h2 ng-class="{warning: meerkats.length < warningThreshold}">
+	You currently have {{meerkats.length}} meerkats alive
+</h2>
+
+// Give the warning threshold a default value.
+$scope.warningThreshold = 4;
+						</code></pre>
 					</section>
 				</section>
 			</div>
