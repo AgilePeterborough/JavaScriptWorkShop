@@ -12,7 +12,6 @@
       }
 
       .show-meerkats{
-        margin-left:130px;
         margin-bottom: 10px;
       }
 
@@ -32,17 +31,42 @@
     <h2>Welcome to <span data-bind="text: appTitle"></h2>
     <h2 data-bind="css: {warning: meerkats().length < 4}">You currently have <span data-bind="text: meerkats().length"></span> meerkats alive</h2>
 
-    <!-- Button to show and hide all the meerkats! -->
-    <button class="btn btn-primary show-meerkats" data-bind="click: ToggleMeerkatsVisibility">Show/Hide Meerkats</button>
+    
+    <div class="container">
+           
+
+          <!-- Button to show and hide all the meerkats! -->
+          <button class="btn btn-primary show-meerkats" data-bind="click: ToggleMeerkatsVisibility">Show/Hide Meerkats</button> 
+
+          <input class="pull-right" type="text" data-bind="value: filter, valueUpdate:'afterkeydown'" placeholder="Filter by Meerkat name">   
+
+          <div>
+            <span>All Types of meerkats (sorted by name):</span> 
+            <span data-bind="foreach: MeerkatTypes()">
+                <span data-bind="text: $data"></span>
+            </span>
+          </div>
+
+          <div>
+            <label>Our First Smart Meerkat : </label>
+            <span data-bind="text: FirstSmartMeerkat().name"></span>
+          </div>
+    </div>
+
+    
+    
+
+    
 
     <!-- Repeating Content -->
     <section class="container" data-bind="visible : ShowMeerkats">
-      <div class="row well" data-bind="foreach: meerkats, visible: meerkats().length > 0">
+      <div class="row well" data-bind="foreach: filteredMeerkats(), visible: meerkats().length > 0">
         <img data-bind="attr:{src: picture_href}" />
         <div >
           <label>Name: </label> <span data-bind="text: name"></span>
           <label>Date of birth:</label> <span data-bind="text: dateOfBirth"></span>
           <label>Age:</label> <span data-bind="text: $root.calculateAge(dateOfBirth)"></span>
+          <label>Type:</label> <span data-bind="text: type"></span>
 
           <!-- Button that is bound to a function in the viewmodel that allows users to delete meerkats :O!!! -->
           <button class="btn btn-danger" data-bind="click: $root.KillMeerkat">Delete</button>
@@ -65,6 +89,8 @@
         //Simple app title
         this.appTitle = ko.observable("The Great Meerkat Dashboard!");
 
+        this.filter = ko.observable("");
+
         //Uncomment this line of code to enable the functionality of the show/hide meerkat button
         this.ShowMeerkats = ko.observable(true);
 
@@ -79,12 +105,43 @@
         //Array of meerkats - They look great...
         var base_url = 'http://cdn.comparethemarket.com/meerkat/0.0.0.0/Templates/Styles/Meerkats/PageFiles';
         this.meerkats = ko.observableArray();
-        this.meerkats.push({ name: 'Sergei', dateOfBirth: '1937-04-10', picture_href: base_url + '/115/sergei.png' });
-        this.meerkats.push({ name: 'Yakov', dateOfBirth: '1943-12-20', picture_href: base_url + '/109/Yakov.png' });
-        this.meerkats.push({ name: 'Aleksandr', dateOfBirth: '1976-01-21', picture_href: base_url + '/113/Alek_profile.png' });
-        this.meerkats.push({ name: 'Bobby', dateOfBirth: '1922-04-10', picture_href: base_url + '/115/sergei.png' });
-        this.meerkats.push({ name: 'Frogger', dateOfBirth: '1941-12-20', picture_href: base_url + '/109/Yakov.png' });
-        this.meerkats.push({ name: 'Mona', dateOfBirth: '1979-01-21', picture_href: base_url + '/113/Alek_profile.png' });
+        this.meerkats.push({ name: 'Sergei', type: 'smart', dateOfBirth: '1937-04-10', picture_href: base_url + '/115/sergei.png' });
+        this.meerkats.push({ name: 'Yakov', type: 'hairy', dateOfBirth: '1943-12-20', picture_href: base_url + '/109/Yakov.png' });
+        this.meerkats.push({ name: 'Aleksandr', type: 'baby', dateOfBirth: '1976-01-21', picture_href: base_url + '/113/Alek_profile.png' });
+        this.meerkats.push({ name: 'Bobby', type: 'smart', dateOfBirth: '1922-04-10', picture_href: base_url + '/115/sergei.png' });
+        this.meerkats.push({ name: 'Frogger', type: 'smart', dateOfBirth: '1941-12-20', picture_href: base_url + '/109/Yakov.png' });
+        this.meerkats.push({ name: 'Mona', type: 'hairy', dateOfBirth: '1979-01-21', picture_href: base_url + '/113/Alek_profile.png' });
+
+        this.filteredMeerkats = ko.computed(function() {
+            var filter = self.filter().toLowerCase();
+            if (!filter) {
+                return self.meerkats();
+            } else {
+                return ko.utils.arrayFilter(self.meerkats(), function(item) {
+                    return item.name.toLowerCase().indexOf(filter) !== -1;
+                });
+            }
+        });
+
+        this.FirstSmartMeerkat = ko.computed(function() {
+
+            return ko.utils.arrayFirst(self.meerkats(), function(item) {
+            
+              return  item.type.toLowerCase().indexOf('smart') !== -1;
+
+            });
+                  
+        });
+
+        this.MeerkatTypes = ko.computed(function() {
+
+          var types = ko.utils.arrayMap(self.meerkats(), function(item) {
+              return item.type;
+          });
+
+          return types.sort();
+                  
+        });
 
         //Kill a meerkat :(. Poor meerkat
         this.KillMeerkat = function(meerkat){
@@ -99,11 +156,10 @@
         };
         
         //Tasks:
-        //TODO: Add more meerkats to the list and watch the binding magic. Everything should just be updated
-        //TODO: Add a show/hide button on each meerkat. Allow the user to hide any meerkat they like
-        //TODO: once the user has deleted all the meerkats, show a message saying how cruel they are "Shame on them!"
-        //TODO: Log how many meerkats are currently dead. Every time you kill a meerkat the value should be incremented
-        //TODO: Allow user to resurrect meerkats
+        //TODO: Add more meerkats with differnt types. Watch how the UI updates and the string at top is already sorted
+        //TODO: Render the meerkats by name
+        //TODO: If no items are returned from the filter display a message
+        //TODO: Allow user to add a meerkat (take data and just insert it into the array?)
 
       }
 
