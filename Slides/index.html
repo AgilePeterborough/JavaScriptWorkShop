@@ -677,8 +677,15 @@ viewModel.firstMatch = ko.computed(function() {
             <pre><code>/Lessons/angularjs/lesson-1/index.html</code></pre>
             <br>
             <ol>
-              <li>Uncomment the code to see how data can be bound to the page.</li>
-              <li>Try and complete the tasks at the bottom of the file.</li>
+              <li>
+								Uncomment the code to see how data can be bound to the page.
+							</li>
+              <li>
+								Try and complete the tasks at the bottom of the file.
+							</li>
+							<li>
+								Feel free to experiment with the sample code.
+							</li>
             </ol>
             <br>
             <br>
@@ -706,7 +713,7 @@ viewModel.firstMatch = ko.computed(function() {
 							<li>Handling click events.</li>
 							<li>Handling user input.</li>
 							<li>Changing the state of elements (show/hide).</li>
-							<li>Adding elements on the fly.</li>
+							<li>Changing element styles.</li>
 						</ol>
 					</section>
 
@@ -716,15 +723,18 @@ viewModel.firstMatch = ko.computed(function() {
 						<p>
 							The <code>ng-click</code> directive allows behavior to be triggered when elements are clicked.
 						</p>
-						<br>
 						<pre><code>
-&lt;button class=&quot;btn&quot; ng-click=&quot;killMeerkat(meerkat)&quot;&gt;Delete&lt;/button&gt;
+<button class="btn" ng-click="killMeerkat(meerkat)">Delete</button>
 
 $scope.killMeerkat = function(meerkat) {
 	var index = $scope.meerkats.indexOf(meerkat);
 	$scope.meerkats.splice(index, 1);
 };
 						</code></pre>
+						<p>
+							Specify a function within the ng-click directive to cause that
+							function to be invoked when the element is clicked.
+						</p>
 					</section>
 
 					<section>
@@ -769,6 +779,63 @@ $scope.warningThreshold = 4;
 	Show/Hide Meerkats
 </button>
 						</code></pre>
+					</section>
+
+					<section>
+						<h2>Changing element styles</h2>
+						<br>
+						<p>
+							Applying style changes to elements is achieved by using the
+							<code>ng-class</code> directive.
+						</p>
+						<pre><code>
+<h2 ng-class="{warning: meerkats.length < warningThreshold}">
+	You currently have {{meerkats.length}} meerkats alive
+</h2>
+						</code></pre>
+						<p>
+							The example above maps the result of the
+							<code>meerkats.length < warningThreshold</code> expression to
+							the <code>warning</code> CSS class.
+						</p>
+						<p>
+							If the expression evaluates
+							to true then the class is applied. Otherwise the class is not
+							applied.
+						</p>
+					</section>
+
+					<section>
+						<h2>Let's code!</h2>
+						<br>
+						<p>
+							Open this file:
+						</p>
+						<pre><code>/Lessons/angularjs/lesson-2/index.html</code></pre>
+						<br>
+						<ol>
+							<li>
+								Uncomment the code to see how different elements of the page
+								can be affected by expressions bound to the model.
+							</li>
+							<li>
+								Try and complete the tasks at the bottom of the file.
+							</li>
+							<li>
+								Feel free to experiment with the sample code.
+							</li>
+						</ol>
+						<br>
+						<br>
+						<p>
+							A copy of index.html with all tasks completed can be found here:
+							<pre><code>/Lessons/angularjs/lesson-2-completed/index.html</code></pre>
+						</p>
+					</section>
+
+					<section>
+						<h2>What did we learn?</h2>
+						<br>
 					</section>
 				</section>
 			</div>
