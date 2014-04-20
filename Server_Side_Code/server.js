@@ -1,19 +1,18 @@
 var express = require("express"),
  randomNumberGenerator = require('./randomNumberGenerator.js'),
+ mockData = require('./mockData.js'),
  meerkovo = require("./meerkovo.js"),
  datasource = new meerkovo(new randomNumberGenerator(1,50)),
  app = express(),
  server = require('http').createServer(app),
  path = require('path'),
  io = require('socket.io').listen(server);
+
 var fullPath = path.resolve(__dirname + '/../Framework_Barebones');
 
-app.configure(function(){
-    app.use("/",express.static(fullPath));
-});
+app.use("/",express.static(fullPath));
 
 server.listen("3030");
-
 
 var actionMap= {
     "meerkats-awake": datasource.numberOfMeerkatsAwake,
@@ -41,6 +40,26 @@ app.get('/',function(req, res){
     var fullPath = path.resolve(__dirname + '/../web/test.html');
     res.sendfile(fullPath);
 });
+
+//Calls for dummy data
+app.get('/getNotifications',function(req, res){
+  res.send(mockData.getNotifications())
+});
+
+app.get('/getTimeline',function(req, res){
+  res.send(mockData.getTimeline())
+});
+
+app.get('/getVisitors',function(req, res){
+  res.send(mockData.getVisitors())
+});
+
+app.get('/getAnimals',function(req, res){
+  res.send(mockData.getAnimals())
+});
+
+
+
 console.log("listening for connections on 3030");
 
 io.sockets.on('connection',function(socket){

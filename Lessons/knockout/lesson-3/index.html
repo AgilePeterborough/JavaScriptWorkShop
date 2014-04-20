@@ -53,14 +53,9 @@
           </div>
     </div>
 
-    
-    
-
-    
-
     <!-- Repeating Content -->
     <section class="container" data-bind="visible : ShowMeerkats">
-      <div class="row well" data-bind="foreach: filteredMeerkats(), visible: meerkats().length > 0">
+      <div class="row well" data-bind="foreach: FilteredMeerkats(), visible: meerkats().length > 0">
         <img data-bind="attr:{src: picture_href}" />
         <div >
           <label>Name: </label> <span data-bind="text: name"></span>
@@ -112,19 +107,28 @@
         this.meerkats.push({ name: 'Frogger', type: 'smart', dateOfBirth: '1941-12-20', picture_href: base_url + '/109/Yakov.png' });
         this.meerkats.push({ name: 'Mona', type: 'hairy', dateOfBirth: '1979-01-21', picture_href: base_url + '/113/Alek_profile.png' });
 
-        this.filteredMeerkats = ko.computed(function() {
+        //Computed to filter meerkats based on the user input
+        this.FilteredMeerkats = ko.computed(function() {
             var filter = self.filter().toLowerCase();
+
+            //Just check if the filter is set
             if (!filter) {
+
                 return self.meerkats();
+
             } else {
+
+                //Return filtered array
                 return ko.utils.arrayFilter(self.meerkats(), function(item) {
                     return item.name.toLowerCase().indexOf(filter) !== -1;
                 });
             }
         });
 
+        //Return the first smart meerkat
         this.FirstSmartMeerkat = ko.computed(function() {
 
+            //Return the first meerkat that is type 'smart'
             return ko.utils.arrayFirst(self.meerkats(), function(item) {
             
               return  item.type.toLowerCase().indexOf('smart') !== -1;
@@ -133,8 +137,10 @@
                   
         });
 
+        //All the meerkat types.
         this.MeerkatTypes = ko.computed(function() {
 
+          //Create new array with only the types
           var types = ko.utils.arrayMap(self.meerkats(), function(item) {
               return item.type;
           });
