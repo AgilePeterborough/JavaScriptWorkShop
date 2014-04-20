@@ -873,6 +873,75 @@ $scope.warningThreshold = 4;
 						<br>
 					</section>
 				</section>
+
+				<section>
+					<section>
+						<h2>Lesson 3: Filtering a Sorting Data</h2>
+						<br>
+						<p>
+							What we will cover:
+						</p>
+						<br>
+						<ol>
+							<li>Filtering data from a collection using <code>filter</code></li>
+							<li>Sorting data collections</li>
+							<li>Limiting the amount of data returned from a collection</li>
+							<li>Data type filters</li>
+						</ol>
+					</section>
+
+					<section>
+						<h2>Filtering data from a collection</h2>
+						<br>
+						<p>
+							Filters in AngularJS are components that can be included in
+							expressions to transform an set of input objects to a new set
+							of output objects, e.g. including only meerkats that are older
+							that a specific age.
+						</p>
+						<pre><code>
+<label>Filter by name:</label>
+<input type="text" ng-model="nameFilter">
+
+<div ng-repeat="meerkat in meerkats | filter:nameFilter">
+</div>
+						</code></pre>
+						<p>
+							Filter a collection of elements rendered using <code>ng-repeat</code>.
+						</p>
+					</section>
+
+					<section>
+						<h2>Sorting data</h2>
+						<br>
+						<p>
+							Ordering data in AngularJS is as simple as applying the
+							<code>orderby</code> keyword to the expression within an
+							<code>ng-repeat</code> directive.
+						</p>
+						<pre><code>
+<a href="" ng-click="sortDirection = !sortDirection">
+	Order by age ascending = {{sortDirection}}
+</a>
+
+<div ng-repeat="meerkat in meerkats
+	| filter:nameFilter
+	| orderBy:calculateAge:sortDirection">
+	<!-- Repeating content -->
+</div>
+						</code></pre>
+						<p>
+							In this example <code>calculateAge</code> is a function that returns
+							the values on which to sort. <code>orderBy</code> can also be bound
+							directly to attributes of the model for sorting, e.g. 'name'.
+						</p>
+					</section>
+
+					<section>
+						<h2>What did we learn?</h2>
+						<br>
+					</section>
+				</section>
 			</div>
 		</div>
 

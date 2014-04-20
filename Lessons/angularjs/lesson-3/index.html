@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Meerkat Dashboard</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+    <style>
+      .warning {
+        color:red;
+      }
+    </style>
+    <script src="../bower_components/angular/angular.js"></script>
+  </head>
+
+  <!-- Set the scope of the body element to use the MyController -->
+  <body ng-controller="MyController">
+
+    <section class="container">
+      <!-- Binding to the view model to get a heading for the page -->
+      <h2>Welcome to {{appTitle}}</h2>
+      <p>{{appDescription}}</p>
+      <div>
+        <label>Warning threshold:</label>
+        <input name="warningThreshold" ng-model="warningThreshold" />
+      </div>
+
+      <h2 ng-class="{warning: meerkats.length < warningThreshold}">You currently have {{meerkats.length}}</span> meerkats alive</h2>
+
+      <div>
+        <button class="btn btn-primary" ng-click="showMeerkats = !showMeerkats">Show/Hide Meerkats</button>
+      </div>
+      <div>
+        <label>Filter meerkats by name:</label><input type="text" ng-model="nameFilter" placeholder="Enter a name">
+      </div>
+      <div>
+        <a href="" ng-click="sortDirection = !sortDirection">Order by age ascending = {{sortDirection}}</a>
+      </div>
+
+    </section>
+
+    <!-- Repeating Content -->
+    <section class="container">
+      <div class="row well" ng-repeat="meerkat in meerkats | filter:nameFilter | orderBy:calculateAge:sortDirection" ng-hide="showMeerkats">
+        <img src="{{meerkat.picture_href}}" />
+        <div>
+          <p><label>Name:</label> {{meerkat.name}}</p>
+          <p><label>Initial:</label> {{meerkat.name[0]}}</p>
+          <p><label>Date of birth:</label> {{meerkat.dateOfBirth}}</p>
+          <p><label>Age:</label> {{calculateAge(meerkat)}}</p>
+          <p>{{comment(meerkat)}}</p>
+          <button class="btn btn-danger" ng-click="killMeerkat(meerkat)">Delete</button>
+        </div>
+      </div>
+    </section>
+    <!-- End of Repeating Content -->
+
+    <script language="javascript">
+      var myApp = angular.module('myApp', []);
+
+      myApp.controller('MyController', function($scope) {
+        $scope.appTitle = 'The Great Meekat Dashboard!';
+
+        var base_url = 'http://cdn.comparethemarket.com/meerkat/0.0.0.0/Templates/Styles/Meerkats/PageFiles';
+        $scope.meerkats = [];
+        $scope.meerkats.push({ name: 'Sergei', dateOfBirth: '1937-04-10', picture_href: base_url + '/115/sergei.png' });
+        $scope.meerkats.push({ name: 'Yakov', dateOfBirth: '1943-12-20', picture_href: base_url + '/109/Yakov.png' });
+        $scope.meerkats.push({ name: 'Aleksandr', dateOfBirth: '1976-01-21', picture_href: base_url + '/113/Alek_profile.png' });
+
+
+        $scope.calculateAge = function(meerkat) {
+          var now = new Date(),
+              dob = new Date(meerkat.dateOfBirth);
+
+          return now.getYear() - dob.getYear();
+        };
+
+        $scope.meerkats.push({ name: 'Maiya', dateOfBirth: '1955-08-12', picture_href: base_url + '/109/maiya.png' });
+        $scope.meerkats.push({ name: 'Vassily', dateOfBirth: '1949-05-02', picture_href: base_url + '/109/Vassily.png' });
+
+        $scope.appDescription = 'This is such a neat way to bind data - look no JQuery ^_^';
+
+        $scope.comment = function(meerkat) {
+          if ($scope.calculateAge(meerkat) > 71) {
+            return 'Old Meerkat';
+          }
+        };
+
+        $scope.killMeerkat = function(meerkat) {
+          var index = $scope.meerkats.indexOf(meerkat);
+          $scope.meerkats.splice(index, 1);
+        };
+
+        // Default the warning threshold for live meerkats.
+        $scope.warningThreshold = 4;
+
+        $scope.sortDirection = true;
+
+      // Tasks:
+      // [ ] - Add more meerkats to the list and watch the binding magic. Everything should just be updated
+      // [ ] - Add a show/hide button on each meerkat. Allow the user to hide any meerkat they like
+      // [ ] - Once the user has deleted all the meerkats, show a message saying how cruel they are "Shame on them!"
+      // [ ] - Log how many meerkats are currently dead. Every time you kill a meerkat the value should be incremented
+      // [ ] - Allow user to resurrect meerkats
+      });
+    </script>
+  </body>
+</html>
