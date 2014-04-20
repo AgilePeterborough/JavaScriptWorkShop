@@ -5,15 +5,6 @@
     <title>Meerkat Dashboard</title>
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
     <style>
-      h2 {
-        text-align: center;
-      }
-
-      .show-meerkats {
-        margin-left:130px;
-        margin-bottom: 10px;
-      }
-
       .warning {
         color:red;
       }
@@ -24,23 +15,25 @@
   <!-- Set the scope of the body element to use the MyController -->
   <body ng-controller="MyController">
 
-    <!-- Binding to the view model to get a heading for the page -->
-    <h2>Welcome to {{appTitle}}</h2>
-    <p>{{appDescription}}</p>
-    <div>
-      <label>Warning threshold:</label>
-      <input name="warningThreshold" ng-model="warningThreshold" />
-    </div>
+    <section class="container">
+      <!-- Binding to the view model to get a heading for the page -->
+      <h2>Welcome to {{appTitle}}</h2>
+      <p>{{appDescription}}</p>
+      <div>
+        <label>Warning threshold:</label>
+        <input name="warningThreshold" ng-model="warningThreshold" />
+      </div>
 
-    <h2 ng-class="{warning: meerkats.length < warningThreshold}">You currently have {{meerkats.length}} meerkats alive</h2>
-    <h2 ng-show="meerkats.length == 0">How cruel - you mudered all of the Meerkats!</h3>
+      <h2 ng-class="{warning: meerkats.length < warningThreshold}">You currently have {{meerkats.length}} meerkats alive</h2>
+      <h2 ng-show="meerkats.length == 0">How cruel - you mudered all of the Meerkats!</h3>
 
-    <h2>
-      {{meerkatsKilled}} meerkats killed so far
-    </h3>
+      <h2>
+        {{meerkatsKilled}} meerkats killed so far
+      </h3>
 
-    <button class="btn btn-primary show-meerkats" ng-click="showMeerkats = !showMeerkats">Show/Hide Meerkats</button>
-    <button class="btn btn-primary show-meerkats" ng-click="resurrectLastKilledMeerkat()">Resurrect most recently deceased meerkat</button>
+      <button class="btn btn-primary show-meerkats" ng-click="showMeerkats = !showMeerkats">Show/Hide Meerkats</button>
+      <button class="btn btn-primary show-meerkats" ng-click="resurrectLastKilledMeerkat()">Resurrect most recently deceased meerkat</button>
+    </section>
 
     <!-- Repeating Content -->
     <section class="container">
