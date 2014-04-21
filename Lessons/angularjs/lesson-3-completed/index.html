@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Meerkat Dashboard</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+    <style>
+      .warning {
+        color:red;
+      }
+    </style>
+    <script src="../bower_components/angular/angular.js"></script>
+  </head>
+
+  <!-- Set the scope of the body element to use the MyController -->
+  <body ng-controller="MyController">
+
+    <section class="container">
+      <!-- Binding to the view model to get a heading for the page -->
+      <h2>Welcome to {{appTitle}}</h2>
+      <p>{{appDescription}}</p>
+      <div>
+        <label>Warning threshold:</label>
+        <input name="warningThreshold" ng-model="warningThreshold" />
+      </div>
+
+      <h2 ng-class="{warning: meerkats.length < warningThreshold}">You currently have {{meerkats.length}}</span> meerkats alive</h2>
+
+      <div>
+        <button class="btn btn-primary" ng-click="showMeerkats = !showMeerkats">Show/Hide Meerkats</button>
+      </div>
+      <div>
+        <label>Filter meerkats by name:</label><input type="text" ng-model="nameFilter" placeholder="Enter a name">
+      </div>
+      <div>
+        <a href="" ng-click="sortAscending = !sortAscending">Order by age ascending = {{sortAscending}}</a>
+      </div>
+      <div>
+        <label>Limit meerkats displayed to:</label><input type="number" ng-model="displayLimit" placeholder="Max meerkats to display">
+      <div>
+        <label>Filter meerkats by color:</label>
+        <select ng-model="colorFilter">
+          <option value="" selected>Any</option>
+          <option value="brown">Brown</option>
+          <option value="grey">Grey</option>
+          <option value="blonde">Blonde</option>
+        </select>
+      </div>
+      </div>
+
+    </section>
+
+    <!-- Repeating Content -->
+    <section class="container">
+      <div class="row well" ng-repeat="meerkat in meerkats | filter:nameFilter | filter:{color:colorFilter} | orderBy:calculateAge:sortAscending | limitTo:displayLimit" ng-hide="showMeerkats">
+        <img src="{{meerkat.picture_href}}" />
+        <div>
+          <p><label>Name:</label> {{meerkat.name}}</p>
+          <p><label>Initial:</label> {{meerkat.name[0]}}</p>
+          <p><label>Date of birth:</label> {{meerkat.dateOfBirth | date:'longDate'}}</p>
+          <p><label>Day of birth:</label> {{meerkat.dateOfBirth | date:'EEEE'}}</p>
+          <p><label>Age:</label> {{calculateAge(meerkat)}}</p>
+          <p>{{comment(meerkat)}}</p>
+          <p><label>Life expectancy:</label> {{calculateLifeExpectancy(meerkat) | number:2}}%</p>
+          <p><label>Feeding cost:</label> {{meerkat.feedingCost | currency:'£'}}</p>
+          <button class="btn btn-danger" ng-click="killMeerkat(meerkat)">Delete</button>
+        </div>
+      </div>
+    </section>
+    <!-- End of Repeating Content -->
+
+    <script language="javascript">
+      var myApp = angular.module('myApp', []);
+
+      myApp.controller('MyController', function($scope) {
+        $scope.appTitle = 'The Great Meekat Dashboard!';
+
+        var base_url = 'http://cdn.comparethemarket.com/meerkat/0.0.0.0/Templates/Styles/Meerkats/PageFiles';
+        $scope.meerkats = [];
+        $scope.meerkats.push({ name: 'Sergei', dateOfBirth: '1937-04-10', picture_href: base_url + '/115/sergei.png', color: 'grey', feedingCost: 44.56 });
+        $scope.meerkats.push({ name: 'Yakov', dateOfBirth: '1943-12-20', picture_href: base_url + '/109/Yakov.png', color: 'brown', feedingCost: 103.3722 });
+        $scope.meerkats.push({ name: 'Aleksandr', dateOfBirth: '1976-01-21', picture_href: base_url + '/113/Alek_profile.png', color: 'blonde', feedingCost: 4878.12 });
+
+
+        $scope.calculateAge = function(meerkat) {
+          var now = new Date(),
+              dob = new Date(meerkat.dateOfBirth);
+
+          return now.getYear() - dob.getYear();
+        };
+
+        $scope.meerkats.push({ name: 'Maiya', dateOfBirth: '1955-08-12', picture_href: base_url + '/109/maiya.png', color: 'brown', feedingCost: 0.22 });
+        $scope.meerkats.push({ name: 'Vassily', dateOfBirth: '1949-05-02', picture_href: base_url + '/109/Vassily.png', color: 'brown', feedingCost: 34.32 });
+
+        $scope.appDescription = 'This is such a neat way to bind data - look no JQuery ^_^';
+
+        $scope.comment = function(meerkat) {
+          if ($scope.calculateAge(meerkat) > 71) {
+            return 'Old Meerkat';
+          }
+        };
+
+        $scope.killMeerkat = function(meerkat) {
+          var index = $scope.meerkats.indexOf(meerkat);
+          $scope.meerkats.splice(index, 1);
+        };
+
+        // Default the warning threshold for live meerkats.
+        $scope.warningThreshold = 4;
+
+        $scope.sortAscending = true;
+
+        $scope.displayLimit = 2;
+
+        $scope.calculateLifeExpectancy = function(meerkat) {
+          return (1 / $scope.calculateAge(meerkat)) * 100;
+        };
+
+        $scope.colorFilter = '';
+
+      // Tasks:
+      // [x] - Add more attributes to each meerkat and try sorting by each of them.
+      // [x] - Add a 'feedingCost' attribute, populate with decimals and format the output as a currency using the currency filter (https://docs.angularjs.org/api/ng/filter/currency).
+      });
+    </script>
+  </body>
+</html>
