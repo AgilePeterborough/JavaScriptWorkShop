@@ -33,21 +33,26 @@
         <label>Filter meerkats by name:</label><input type="text" ng-model="nameFilter" placeholder="Enter a name">
       </div>
       <div>
-        <a href="" ng-click="sortDirection = !sortDirection">Order by age ascending = {{sortDirection}}</a>
+        <a href="" ng-click="sortAscending = !sortAscending">Order by age ascending = {{sortAscending}}</a>
+      </div>
+      <div>
+        <label>Limit meerkats displayed to:</label><input type="number" ng-model="displayLimit" placeholder="Max meerkats to display">
       </div>
 
     </section>
 
     <!-- Repeating Content -->
     <section class="container">
-      <div class="row well" ng-repeat="meerkat in meerkats | filter:nameFilter | orderBy:calculateAge:sortDirection" ng-hide="showMeerkats">
+      <div class="row well" ng-repeat="meerkat in meerkats | filter:nameFilter | orderBy:calculateAge:sortAscending | limitTo:displayLimit" ng-hide="showMeerkats">
         <img src="{{meerkat.picture_href}}" />
         <div>
           <p><label>Name:</label> {{meerkat.name}}</p>
           <p><label>Initial:</label> {{meerkat.name[0]}}</p>
-          <p><label>Date of birth:</label> {{meerkat.dateOfBirth}}</p>
+          <p><label>Date of birth:</label> {{meerkat.dateOfBirth | date:'longDate'}}</p>
+          <p><label>Day of birth:</label> {{meerkat.dateOfBirth | date:'EEEE'}}</p>
           <p><label>Age:</label> {{calculateAge(meerkat)}}</p>
           <p>{{comment(meerkat)}}</p>
+          <p><label>Life expectancy:</label> {{calculateLifeExpectancy(meerkat) | number:2}}%</p>
           <button class="btn btn-danger" ng-click="killMeerkat(meerkat)">Delete</button>
         </div>
       </div>
@@ -93,14 +98,17 @@
         // Default the warning threshold for live meerkats.
         $scope.warningThreshold = 4;
 
-        $scope.sortDirection = true;
+        $scope.sortAscending = true;
+
+        $scope.displayLimit = 2;
+
+        $scope.calculateLifeExpectancy = function(meerkat) {
+          return (1 / $scope.calculateAge(meerkat)) * 100;
+        };
 
       // Tasks:
-      // [ ] - Add more meerkats to the list and watch the binding magic. Everything should just be updated
-      // [ ] - Add a show/hide button on each meerkat. Allow the user to hide any meerkat they like
-      // [ ] - Once the user has deleted all the meerkats, show a message saying how cruel they are "Shame on them!"
-      // [ ] - Log how many meerkats are currently dead. Every time you kill a meerkat the value should be incremented
-      // [ ] - Allow user to resurrect meerkats
+      // [ ] - Add more attributes to each meerkat and try sorting by each of them.
+      // [ ] - Add a 'feedingCost' attribute, populate with decimals and format the output as a currency using the currency filter (https://docs.angularjs.org/api/ng/filter/currency).
       });
     </script>
   </body>

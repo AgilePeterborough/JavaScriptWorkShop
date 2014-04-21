@@ -920,21 +920,71 @@ $scope.warningThreshold = 4;
 							<code>ng-repeat</code> directive.
 						</p>
 						<pre><code>
-<a href="" ng-click="sortDirection = !sortDirection">
-	Order by age ascending = {{sortDirection}}
+<a href="" ng-click="sortAscending = !sortAscending">
+	Order by age ascending = {{sortAscending}}
 </a>
 
 <div ng-repeat="meerkat in meerkats
 	| filter:nameFilter
-	| orderBy:calculateAge:sortDirection">
+	| orderBy:calculateAge:sortAscending">
 	<!-- Repeating content -->
 </div>
+
+$scope.sortAscending = true;
 						</code></pre>
 						<p>
 							In this example <code>calculateAge</code> is a function that returns
-							the values on which to sort. <code>orderBy</code> can also be bound
-							directly to attributes of the model for sorting, e.g. 'name'.
+							the values on which to sort. The second parameter of <code>orderBy</code>
+							controls the direction of the sort: ascending or descending.
 						</p>
+					</section>
+
+					<section>
+						<h2>Limiting the data returned from a collection</h2>
+						<br>
+						<p>
+							The <code>limitTo</code> keyword is used to limit the number
+							of items returned from an array.
+						</p>
+						<pre><code>
+<input type="number" ng-model="displayLimit">
+
+<div ng-repeat="meerkat in meerkats
+	| filter:nameFilter
+	| orderBy:calculateAge:sortAscending
+	| limitTo:displayLimit">
+	<!-- Repeating content -->
+</div>
+
+$scope.displayLimit = 2;
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Data type filters</h2>
+						<br>
+						<p>
+							<code>date</code> transforms a Date value to a number of
+							predefined formats or a custom format you define.
+						</p>
+						<pre><code>
+Date of birth: {{meerkat.dateOfBirth | date:'longDate'}}
+// => Date of birth: Apr 10, 1937
+
+Day of birth: {{meerkat.dateOfBirth | date:'EEEE'}}
+// => Day of birth: Saturday
+						</code></pre>
+						<p>
+							<code>number</code> applies rounding to numeric types.
+						</p>
+						<pre><code>
+$scope.calculateLifeExpectancy = function(meerkat) {
+	return (1 / meerkat.age)) * 100;
+};
+
+Life expectancy: {{calculateLifeExpectancy(meerkat) | number:2}}%
+// => Life expectancy: 1.30%
+						</code></pre>
 					</section>
 
 					<section>
