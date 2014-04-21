@@ -900,10 +900,10 @@ $scope.warningThreshold = 4;
 							that a specific age.
 						</p>
 						<pre><code>
-<label>Filter by name:</label>
-<input type="text" ng-model="nameFilter">
+<label>Search meerkats:</label>
+<input type="text" ng-model="searchText">
 
-<div ng-repeat="meerkat in meerkats | filter:nameFilter">
+<div ng-repeat="meerkat in meerkats | filter:searchText">
 </div>
 						</code></pre>
 						<p>
@@ -925,7 +925,7 @@ $scope.warningThreshold = 4;
 </a>
 
 <div ng-repeat="meerkat in meerkats
-	| filter:nameFilter
+	| filter:searchText
 	| orderBy:calculateAge:sortAscending">
 	<!-- Repeating content -->
 </div>
@@ -950,7 +950,7 @@ $scope.sortAscending = true;
 <input type="number" ng-model="displayLimit">
 
 <div ng-repeat="meerkat in meerkats
-	| filter:nameFilter
+	| filter:searchText
 	| orderBy:calculateAge:sortAscending
 	| limitTo:displayLimit">
 	<!-- Repeating content -->
@@ -985,6 +985,34 @@ $scope.calculateLifeExpectancy = function(meerkat) {
 Life expectancy: {{calculateLifeExpectancy(meerkat) | number:2}}%
 // => Life expectancy: 1.30%
 						</code></pre>
+					</section>
+
+					<section>
+						<h2>Let's code!</h2>
+						<br>
+						<p>
+							Open this file:
+						</p>
+						<pre><code>/Lessons/angularjs/lesson-3/index.html</code></pre>
+						<br>
+						<ol>
+							<li>
+								Uncomment the code to see how different elements of the page
+								can be affected by expressions bound to the model.
+							</li>
+							<li>
+								Try and complete the tasks at the bottom of the file.
+							</li>
+							<li>
+								Feel free to experiment with the sample code.
+							</li>
+						</ol>
+						<br>
+						<br>
+						<p>
+							A copy of index.html with all tasks completed can be found here:
+							<pre><code>/Lessons/angularjs/lesson-3-completed/index.html</code></pre>
+						</p>
 					</section>
 
 					<section>

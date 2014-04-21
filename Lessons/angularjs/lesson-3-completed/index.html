@@ -30,7 +30,7 @@
         <button class="btn btn-primary" ng-click="showMeerkats = !showMeerkats">Show/Hide Meerkats</button>
       </div>
       <div>
-        <label>Filter meerkats by name:</label><input type="text" ng-model="nameFilter" placeholder="Enter a name">
+        <label>Search meerkats:</label><input type="text" ng-model="searchText" placeholder="Enter text to search">
       </div>
       <div>
         <a href="" ng-click="sortAscending = !sortAscending">Order by age ascending = {{sortAscending}}</a>
@@ -52,7 +52,7 @@
 
     <!-- Repeating Content -->
     <section class="container">
-      <div class="row well" ng-repeat="meerkat in meerkats | filter:nameFilter | filter:{color:colorFilter} | orderBy:calculateAge:sortAscending | limitTo:displayLimit" ng-hide="showMeerkats">
+      <div class="row well" ng-repeat="meerkat in meerkats | filter:searchText | filter:{color:colorFilter} | orderBy:calculateAge:sortAscending | limitTo:displayLimit" ng-hide="showMeerkats">
         <img src="{{meerkat.picture_href}}" />
         <div>
           <p><label>Name:</label> {{meerkat.name}}</p>
