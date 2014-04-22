@@ -11,6 +11,7 @@ var express = require("express"),
 var fullPath = path.resolve(__dirname + '/../Framework_Barebones');
 
 app.use("/",express.static(fullPath));
+app.use(express.static(__dirname + '/JSWorkshop'));
 
 server.listen("3030");
 
@@ -38,6 +39,11 @@ app.get('/api/:action/:unitOfTime',function(req, res){
 
 app.get('/',function(req, res){
     var fullPath = path.resolve(__dirname + '/../web/test.html');
+    res.sendfile(fullPath);
+});
+
+app.get('/knockout',function(req, res){
+  var fullPath = path.resolve(__dirname + '/../../JSWorkshop/Lessons/knockout/lesson-4/index.html');
     res.sendfile(fullPath);
 });
 

@@ -533,7 +533,7 @@ viewModel.firstMatch = ko.computed(function() {
               What we will cover:
             </p>
             <ol>
-              <li>Running and Setting up Node.js</li>
+              <li>Running and Setting up the web application</li>
               <li>Making AJAX Request</li>
               <li>Visualising the data from the server</li>
             </ol>
@@ -541,18 +541,74 @@ viewModel.firstMatch = ko.computed(function() {
 
 
           <section>
-            <h2>Setting up Node.js</h2>
+            <h2>Setting up</h2>
             <p>Navigate to the directory</p>
-            <pre><code>/Server_Side_Code/</code></pre>
+            <pre><code>/Lessons/knockoutjs/lesson-4/server</code></pre>
             <p>Run npm install</p>
             <pre><code>npm install</code></pre>
             <p>Run node server.js</p>
             <pre><code>node server.js</code></pre>
+            <p>Open up the webpage</p>
+            <pre><code>http://localhost:3030</code></pre>
           </section>
 
 
           <section>
             <h2>Making Requests</h2>
+            <pre><code>
+  $.ajax({
+    url: &quot;/getMeerkats&quot;,
+    success: function(meerkats){
+
+      //Loop through meerkats and map them back to observable array
+      ko.utils.arrayForEach(meerkats, function(meerkat) {
+        self.meerkats.push(meerkat);
+      });
+
+    },
+    dataType: 'JSON'
+  });
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Visualising the data from the server</h2>
+            <pre><code>&lt;div class=&quot;row well&quot; data-bind=&quot;foreach: meerkats&quot;&gt;
+  &lt;div &gt;
+    &lt;label&gt;Name: &lt;/label&gt; &lt;span data-bind=&quot;text: name&quot;&gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+            </code></pre>
+            <pre><code>//Create ko array
+self.meerkats = ko.observableArray();
+
+//Make request to get data
+ $.ajax({
+    url: '/getMeerkats',
+    success: function(meerkats){
+
+      //Loop through meerkats and map them back to observable array
+      ko.utils.arrayForEach(meerkats, function(meerkat) {
+        self.meerkats.push(meerkat);
+      });
+
+    },
+    dataType: 'JSON'
+  });
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>Let's code!</h2>
+            <br>
+            <p>
+              Start the server
+            </p>
+            <pre><code>node server.js</code></pre>
+             <p>
+              Open this file:
+            </p>
+            <pre><code>/Lessons/knockoutjs/lesson-4/index.html</code></pre>
           </section>
 
         </section>
