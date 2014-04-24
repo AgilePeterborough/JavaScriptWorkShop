@@ -651,7 +651,7 @@ self.meerkats = ko.observableArray();
           <section>
             <h2>Lesson 1: An app with a view</h2>
             <br>
-            <p>
+            <p class="question">
               What we will cover:
             </p>
             <br>
@@ -802,7 +802,7 @@ self.meerkats = ko.observableArray();
 					<section>
 						<h2>Lesson 2: Capturing data and manipulating the DOM</h2>
 						<br>
-						<p>
+						<p class="question">
 							What we will cover:
 						</p>
 						<br>
@@ -940,7 +940,7 @@ $scope.warningThreshold = 4;
 					<section>
 						<h2>Lesson 3: Filtering a Sorting Data</h2>
 						<br>
-						<p>
+						<p class="question">
 							What we will cover:
 						</p>
 						<br>
@@ -1075,6 +1075,104 @@ Life expectancy: {{calculateLifeExpectancy(meerkat) | number:2}}%
 							A copy of index.html with all tasks completed can be found here:
 							<pre><code>/Lessons/angularjs/lesson-3-completed/index.html</code></pre>
 						</p>
+					</section>
+
+					<section>
+						<h2>What did we learn?</h2>
+						<br>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Lesson 4: Getting Data from a Server</h2>
+						<br>
+						<p class="question">
+							What we will cover:
+						</p>
+						<br>
+						<ol>
+							<li>Running our web application.</li>
+							<li>Making an HTTP requests for data.</li>
+							<li>Binding the returned data to our view.</li>
+						</ol>
+					</section>
+
+					<section>
+						<h2>Running our web application</h2>
+						<br>
+						<p>Navigate to the directory</p>
+						<pre><code>/Lessons/angularjs/lesson-4</code></pre>
+						<p>Install Node modules</p>
+						<pre><code>npm install</code></pre>
+						<p>Start the Node.js server</p>
+						<pre><code>node server.js</code></pre>
+						<p>Open up the webpage</p>
+						<pre><code>http://localhost:3030</code></pre>
+					</section>
+
+					<section>
+						<h2>Making HTTP requests for data</h2>
+						<br>
+						<p>
+							AngularJS provides an <code>$http</code> function that can be
+							called to make an HTTP request to a remote server.
+						</p>
+						<p>
+							<code>$http</code> takes a method and a URL and returns a promise
+							that has two functions that handle the result of the request:
+						</p>
+						<pre><code>
+$http({method: 'GET', url: 'http://localhost:3030/getMeerkats'})
+  .success(function(data, status, headers, config) {
+    // Read the data here.
+  })
+  .error(function(data, status, headers, config) {
+    // Handle errors here.
+  });
+						</code></pre>
+					</section>
+
+					<section>
+						<h2>Binding the returned data to our view</h2>
+						<br>
+						<pre><code>
+$http({method: 'GET', url: 'http://localhost:3030/getMeerkats'})
+  .success(function(data, status, headers, config) {
+    // All we need to do is add the data to our $scope and AngularJS will
+    // do the rest :)
+    $scope.meerkats = data;
+  });
+						</code></pre>
+						<p>
+							AngularJS will automatically update the DOM with the new
+							data added to the <code>$scope</code>.
+						</p>
+					</section>
+
+					<section>
+						<h2>Let's code!</h2>
+						<br>
+						<p>
+							Open this file:
+						</p>
+						<pre><code>/Lessons/angularjs/lesson-4/index.html</code></pre>
+						<p>
+							Start the server:
+						</p>
+						<pre><code>node /Lessons/angularjs/lesson-4/server.js</code></pre>
+						<br>
+						<ol>
+							<li>
+								Uncomment the code to get a list of timeline events from the server.
+							</li>
+							<li>
+								Try and complete the tasks at the bottom of the file.
+							</li>
+							<li>
+								Feel free to experiment with the sample code.
+							</li>
+						</ol>
 					</section>
 
 					<section>
