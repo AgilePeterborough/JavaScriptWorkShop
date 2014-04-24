@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Meerkat Dashboard</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+
+    <style>
+
+      h2{
+        text-align: center;
+      }
+
+      .show-meerkats{
+        margin-left:130px;
+        margin-bottom: 10px;
+      }
+
+      .warning{
+        color:red;
+      }
+
+    </style>
+
+    <script src="../lib/knockout.js"></script>
+  </head>
+
+  <!-- Set the scope of the body element to use the MyController -->
+  <body>
+
+    <!-- Binding to the view model to get a heading for the page -->
+    <h2>Welcome to <span data-bind="text: appTitle"></h2>
+    <h2 data-bind="css: {warning: meerkats().length < 4}">You currently have <span data-bind="text: meerkats().length"></span> meerkats alive</h2>
+
+    <!-- Button to show and hide all the meerkats! -->
+    <button class="btn btn-primary show-meerkats" data-bind="click: ToggleMeerkatsVisibility">Show/Hide Meerkats</button>
+
+    <!-- Repeating Content -->
+    <section class="container" data-bind="visible : ShowMeerkats">
+      <div class="row well" data-bind="foreach: meerkats, visible: meerkats().length > 0">
+        <div data-bind="visible: visible">
+         <img data-bind="attr:{src: picture_href}" />
+         <div >
+          <label>Name: </label> <span data-bind="text: name"></span>
+          <label>Date of birth:</label> <span data-bind="text: dateOfBirth"></span>
+          <label>Age:</label> <span data-bind="text: $root.calculateAge(dateOfBirth)"></span>
+  
+          <button class="btn btn-danger" data-bind="click: $root.KillMeerkat">Delete</button>
+          
+
+        </div>
+
+      </div>
+
+      <button class="btn btn-danger" data-bind="click: $root.ToggleMeerkatVisibility">Show/Hide</button>
+
+    </div>
+
+  </section>
+
+    <section class="container" data-bind="visible : killedMeerkats().length > 0">
+      <h1>Meerkat Graveyard (RIP)</h1>
+      <div class="row well" data-bind="foreach: killedMeerkats">
+        <img data-bind="attr:{src: picture_href}" />
+        <div >
+          <label>Name: </label> <span data-bind="text: name"></span>
+          <label>Date of birth:</label> <span data-bind="text: dateOfBirth"></span>
+          <label>Age:</label> <span data-bind="text: $root.calculateAge(dateOfBirth)"></span>
+
+          <!-- Button that is bound to a function in the viewmodel that allows users to delete meerkats :O!!! -->
+          <button class="btn btn-success" data-bind="click: $root.ResurrectMeerkat">Resurrect</button>
+
+        </div>
+      </div>
+
+    </section>
+
+    <h1 data-bind="visible: meerkats().length <= 0">You have killed all the Meerkats! How could you do that???</h1>
+
+
+    <!-- End of Repeating Content -->
+
+    <script language="javascript">
+
+    // Here's my data model
+    var ViewModel = function() {
+
+        var self = this;
+        
+        //Simple app title
+        this.appTitle = ko.observable("The Great Meerkat Dashboard!");
+
+        //Uncomment this line of code to enable the functionality of the show/hide meerkat button
+        this.ShowMeerkats = ko.observable(true);
+
+
+        //Simple function that just toggles the visibility of all the meerkats
+        this.ToggleMeerkatsVisibility = function(){
+          var state = this.ShowMeerkats() ? false : true;
+          //Update the obserable. The DOM will be updated for us :)
+          self.ShowMeerkats(state);
+        }
+
+        this.ToggleMeerkatVisibility = function(meerkat){
+          var state = meerkat.visible() ? false : true;
+          meerkat.visible(state);
+        }
+
+        //Array of meerkats - They look great...
+        var base_url = 'http://cdn.comparethemarket.com/meerkat/0.0.0.0/Templates/Styles/Meerkats/PageFiles';
+        this.meerkats = ko.observableArray();
+        this.meerkats.push({ name: 'Sergei', dateOfBirth: '1937-04-10', picture_href: base_url + '/115/sergei.png', visible: ko.observable(true) });
+        this.meerkats.push({ name: 'Yakov', dateOfBirth: '1943-12-20', picture_href: base_url + '/109/Yakov.png', visible: ko.observable(true) });
+        this.meerkats.push({ name: 'Aleksandr', dateOfBirth: '1976-01-21', picture_href: base_url + '/113/Alek_profile.png', visible:ko.observable(true) });
+        this.meerkats.push({ name: 'Bobby', dateOfBirth: '1922-04-10', picture_href: base_url + '/115/sergei.png', visible:ko.observable(true) });
+        this.meerkats.push({ name: 'Frogger', dateOfBirth: '1941-12-20', picture_href: base_url + '/109/Yakov.png', visible:ko.observable(true) });
+        this.meerkats.push({ name: 'Mona', dateOfBirth: '1979-01-21', picture_href: base_url + '/113/Alek_profile.png', visible:ko.observable(true) });
+
+        //Kill a meerkat :(. Poor meerkat
+        this.KillMeerkat = function(meerkat){
+          self.meerkats.remove(meerkat);
+          self.killedMeerkats.push(meerkat);
+        }
+
+        //Lets just calculate how old our meerkats are
+        this.calculateAge = function(dateOfBirth) {
+          var now = new Date(),
+              dob = new Date(dateOfBirth);
+          return now.getYear() - dob.getYear();
+        };
+        
+        //Tasks:
+        //TODO: Add more meerkats to the list and watch the binding magic. Everything should just be updated
+        this.meerkats.push({ name: 'David', dateOfBirth: '1979-01-21', picture_href: base_url + '/113/Alek_profile.png', visible:ko.observable(true) });
+        this.meerkats.push({ name: 'Chris', dateOfBirth: '1979-01-21', picture_href: base_url + '/113/Alek_profile.png', visible:ko.observable(true) });
+
+        //TODO: Add a show/hide button on each meerkat. Allow the user to hide any meerkat they like
+        
+        
+        //TODO: once the user has deleted all the meerkats, show a message saying how cruel they are "Shame on them!"
+        //Check HTML above. Added visible binding to a basic h1 element
+        
+        //TODO: Log how many meerkats are currently dead. Every time you kill a meerkat the value should be incremented
+        this.killedMeerkats = ko.observableArray();
+
+        //TODO: Allow user to resurrect meerkats
+        this.ResurrectMeerkat = function(meerkat){
+          self.meerkats.push(meerkat);
+          self.killedMeerkats.remove(meerkat);
+        };
+
+      }
+
+       //Apply View to the DOM
+       ko.applyBindings(new ViewModel());
+    </script>
+  </body>
+</html>

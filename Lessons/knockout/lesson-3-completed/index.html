@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Meerkat Dashboard</title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+
+    <style>
+
+      h2{
+        text-align: center;
+      }
+
+      .show-meerkats{
+        margin-bottom: 10px;
+      }
+
+      .warning{
+        color:red;
+      }
+
+    </style>
+
+    <script src="../lib/knockout.js"></script>
+  </head>
+
+  <!-- Set the scope of the body element to use the MyController -->
+  <body>
+
+    <!-- Binding to the view model to get a heading for the page -->
+    <h2>Welcome to <span data-bind="text: appTitle"></h2>
+    <h2 data-bind="css: {warning: meerkats().length < 4}">You currently have <span data-bind="text: meerkats().length"></span> meerkats alive</h2>
+
+    
+    <div class="container">
+           
+
+          <!-- Button to show and hide all the meerkats! -->
+          <button class="btn btn-primary show-meerkats" data-bind="click: ToggleMeerkatsVisibility">Show/Hide Meerkats</button> 
+
+          <input class="pull-right" type="text" data-bind="value: filter, valueUpdate:'afterkeydown'" placeholder="Filter by Meerkat name">   
+
+          <div>
+            <span>All Types of meerkats (sorted by name):</span> 
+            <span data-bind="foreach: MeerkatTypes()">
+                <span data-bind="text: $data"></span>
+            </span>
+          </div>
+
+          <div>
+            <label>Our First Smart Meerkat : </label>
+            <span data-bind="text: FirstSmartMeerkat().name"></span>
+          </div>
+    </div>
+
+    <!-- Repeating Content -->
+    <section class="container" data-bind="visible : ShowMeerkats">
+      <div class="row well" data-bind="foreach: FilteredMeerkats(), visible: meerkats().length > 0">
+        <img data-bind="attr:{src: picture_href}" />
+        <div >
+          <label>Name: </label> <span data-bind="text: name"></span>
+          <label>Date of birth:</label> <span data-bind="text: dateOfBirth"></span>
+          <label>Age:</label> <span data-bind="text: $root.calculateAge(dateOfBirth)"></span>
+          <label>Type:</label> <span data-bind="text: type"></span>
+
+          <!-- Button that is bound to a function in the viewmodel that allows users to delete meerkats :O!!! -->
+          <button class="btn btn-danger" data-bind="click: $root.KillMeerkat">Delete</button>
+
+        </div>
+
+      </div>
+
+      <h4 data-bind="visible: FilteredMeerkats().length <= 0">No meerkats found with your filter. Please try again</h4>
+
+    </section>
+
+    <section class="container">
+      <label>Meerkat Name</label> <input data-bind="value: newMeerkatName" type="text">
+      <label>Meerkat Type</label> <input data-bind="value: newMeerkatType" type="text">
+      <button class="btn btn-success" data-bind="click: AddMeerkat">Add Meerkat</button>
+    </section>
+
+
+    <!-- End of Repeating Content -->
+
+    <script language="javascript">
+
+    // Here's my data model
+    var ViewModel = function() {
+
+        var self = this;
+        
+        //Simple app title
+        this.appTitle = ko.observable("The Great Meerkat Dashboard!");
+
+        this.filter = ko.observable("");
+
+        this.newMeerkatName = ko.observable("");
+        this.newMeerkatType = ko.observable("");
+
+        //Uncomment this line of code to enable the functionality of the show/hide meerkat button
+        this.ShowMeerkats = ko.observable(true);
+
+        
+
+
+        //Simple function that just toggles the visibility of all the meerkats
+        this.ToggleMeerkatsVisibility = function(){
+          var state = this.ShowMeerkats() ? false : true;
+          //Update the obserable. The DOM will be updated for us :)
+          self.ShowMeerkats(state);
+        }
+
+        //Array of meerkats - They look great...
+        var base_url = 'http://cdn.comparethemarket.com/meerkat/0.0.0.0/Templates/Styles/Meerkats/PageFiles';
+        this.meerkats = ko.observableArray();
+        this.meerkats.push({ name: 'Sergei', type: 'smart', dateOfBirth: '1937-04-10', picture_href: base_url + '/115/sergei.png' });
+        this.meerkats.push({ name: 'Yakov', type: 'hairy', dateOfBirth: '1943-12-20', picture_href: base_url + '/109/Yakov.png' });
+        this.meerkats.push({ name: 'Aleksandr', type: 'baby', dateOfBirth: '1976-01-21', picture_href: base_url + '/113/Alek_profile.png' });
+        this.meerkats.push({ name: 'Bobby', type: 'smart', dateOfBirth: '1922-04-10', picture_href: base_url + '/115/sergei.png' });
+        this.meerkats.push({ name: 'Frogger', type: 'smart', dateOfBirth: '1941-12-20', picture_href: base_url + '/109/Yakov.png' });
+        this.meerkats.push({ name: 'Mona', type: 'hairy', dateOfBirth: '1979-01-21', picture_href: base_url + '/113/Alek_profile.png' });
+
+
+
+        //Computed to filter meerkats based on the user input
+        this.FilteredMeerkats = ko.computed(function() {
+            var filter = self.filter().toLowerCase();
+
+            //Just check if the filter is set
+            if (!filter) {
+
+                return self.meerkats();
+
+            } else {
+
+                //Return filtered array
+                return ko.utils.arrayFilter(self.meerkats(), function(item) {
+                    return item.name.toLowerCase().indexOf(filter) !== -1;
+                });
+            }
+        });
+
+        //Return the first smart meerkat
+        this.FirstSmartMeerkat = ko.computed(function() {
+
+            //Return the first meerkat that is type 'smart'
+            return ko.utils.arrayFirst(self.meerkats(), function(item) {
+            
+              return  item.type.toLowerCase().indexOf('smart') !== -1;
+
+            });
+                  
+        });
+
+        //All the meerkat types.
+        this.MeerkatTypes = ko.computed(function() {
+
+          //Create new array with only the types
+          var types = ko.utils.arrayMap(self.meerkats(), function(item) {
+              return item.type;
+          });
+
+          return types.sort();
+                  
+        });
+
+        //Kill a meerkat :(. Poor meerkat
+        this.KillMeerkat = function(meerkat){
+          self.meerkats.remove(meerkat);
+        }
+
+        //Lets just calculate how old our meerkats are
+        this.calculateAge = function(dateOfBirth) {
+          var now = new Date(),
+              dob = new Date(dateOfBirth);
+          return now.getYear() - dob.getYear();
+        };
+        
+        //Tasks:
+        //TODO: Add more meerkats with differnt types. Watch how the UI updates and the string at top is already sorted
+        this.meerkats.push({ name: 'David', type: 'coder', dateOfBirth: '1937-04-10', picture_href: base_url + '/115/sergei.png' });
+        this.meerkats.push({ name: 'Chris', type: 'coder', dateOfBirth: '1937-04-10', picture_href: base_url + '/115/sergei.png' });
+
+        //Use knockout sort method
+        self.meerkats.sort(function(left, right) { 
+
+            //left and right are objects in the array
+            //More information - http://www.c-sharpcorner.com/UploadFile/cd7c2e/apply-sort-function-on-observable-array-using-knockoutjs/
+            return left.name == right.name ? 0 : (left.name < right.name ? -1 : 1) 
+        });
+        
+        //TODO: If no items are returned from the filter display a message
+        //Added HTML message with visible binding
+        
+        //TODO: Allow user to add a meerkat (take data and just insert it into the array?)
+        this.AddMeerkat = function(){
+          this.meerkats.push({
+            name: self.newMeerkatName(),
+            type: self.newMeerkatType(),
+            dateOfBirth: '1990-12-12',
+            picture_href: "http://cdn.comparethemarket.com/meerkat/0.0.0.0/Templates/Styles/Meerkats/PageFiles/115/sergei.png"
+          })
+        }
+
+      }
+
+       //Apply View to the DOM
+       ko.applyBindings(new ViewModel());
+    </script>
+  </body>
+</html>
