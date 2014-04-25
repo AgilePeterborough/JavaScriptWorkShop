@@ -721,7 +721,7 @@ self.meerkats = ko.observableArray();
           <section>
             <h2>Bootstrapping our Angular app</h2>
             <br>
-            <p>
+            <p class="question">
               Declaring our application scope
             </p>
             <p>
@@ -736,16 +736,21 @@ self.meerkats = ko.observableArray();
             <h2>Adding a Controller</h2>
             <br>
             <p>
-              Controllers are pieces of executable JavaScript code that are responsible for associating data with the current scope of a view.
+              Controllers are pieces of executable JavaScript code that are responsible
+							for associating data with the current scope of a view. They define the scope
+							of data available to child elements.
             </p>
             <p>
-              Controllers should retrieve the data to be displayed from your model, be it a web services or other data source, and add elements to the $scope variable that need to be made available to the view.
+              Controllers should retrieve the data to be displayed from your model,
+							be it a web service or other data source, and add elements to the
+							<code>$scope</code> variable that need to be made available to the view.
             </p>
             <pre><code>
               &lt;body ng-controller="MyController"&gt;
             </code></pre>
             <p>
-              The <code>ng-controller</code> directive tells Angular where to apply a controller within your markup. Child elements of the element containing the <code>ng-controller</code> directive will have access to the $scope associated with your controller for binding purposes.
+              The <code>ng-controller</code> directive tells Angular where the scope of
+							your controller begins.
             </p>
           </section>
 
@@ -753,8 +758,13 @@ self.meerkats = ko.observableArray();
             <h2>Wiring up the JavaScript code</h2>
             <br>
             <p>
-              With the directives in place we can now add the code that executes at runtime when Angular processes our page. First we get a reference to our application by calling the <code>module()</code> function of the global <code>angular</code> reference.
+              With the <code>ng-app</code> and <code>ng-controller</code> directives
+							in place we can start building our view model.
             </p>
+						<p>
+							First we get a reference to our application by calling the <code>module()</code>
+							function of the global <code>angular</code> reference.
+						</p>
             <pre><code>
               var myApp = angular.module('myApp', []);
             </code></pre>
@@ -764,7 +774,9 @@ self.meerkats = ko.observableArray();
             <h2>Wiring up the JavaScript code (2)</h2>
             <br>
             <p>
-              Then we declare our controller calling the <code>controller()</code> function on the application reference passing in a function that accepts the <code>$scope</code> argument.
+              Then we declare our controller by calling the <code>controller()</code>
+							function on the application reference passing in a function that contains
+							a <code>$scope</code> argument.
             </p>
             <pre><code>
                 myApp.controller('MyController', function($scope) {
@@ -778,24 +790,30 @@ self.meerkats = ko.observableArray();
             <h2>Now we can bind data from $scope to our view</h2>
             <br>
             <p>
-              Items from the $scope are reference in the view using double braces '{{}}' to surround the name of the $scope attribute to reference.
+              Items from the $scope are referenced in the view using double braces
+							<code>{{}}</code> to surround the name of the <code>$scope</code>
+							attribute to reference.
             </p>
             <pre><code>
-              &lt;p&gt;This value is from the $scope: {{awesome_thing}}&lt;p&gt;
+<p>This value is from the $scope: {{awesome_thing}}</p>
             </code></pre>
           </section>
 
 					<section>
-						<h2>Displaying data using Angular</h2>
+						<h2>What just happened?</h2>
 						<br>
 						<ol>
-							<li>Add data to the $scope variable.</li>
-							<li>Tell Angular where to display the data in the markup by using double brace markers '{{}}'.</li>
-							<li>Angular automatically replaces the {{}} with values from the $scope as required.</li>
+							<li>Add data to the <code>$scope</code> variable.</li>
+							<li>Tell Angular where to display the data in the markup by using
+								double brace markers <code>{{}}</code>.</li>
+							<li>Angular automatically replaces the <code>{{}}</code> with values
+								from the $scope as required.</li>
 						</ol>
 						<br>
+						<br>
 						<p>
-							Binding is two way, i.e. edits to the bound data values within the markup will be reflected back to the $scope variable.
+							Binding is two way, i.e. edits to the bound data values within the
+							markup will be reflected back to the <code>$scope</code> variable.
 						</p>
 					</section>
 
